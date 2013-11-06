@@ -115,6 +115,16 @@ public final class Mock {
 		System.out.println("Neuer Kunde: " + kunde);
 		return kunde;
 	}
+    public static Artikel createArtikel(Artikel artikel) {
+
+        // TODO Artikelnummer anpassen (%3=0)
+        artikel.setBezeichnung("Artikel1neu");
+        artikel.setId(3);
+        artikel.setPreis(13.32);
+
+        System.out.println("Neuer Artikel Artikel: " + artikel);
+        return artikel;
+}
 
 	public static void updateKunde(AbstractKunde kunde) {
 		System.out.println("Aktualisierter Kunde: " + kunde);

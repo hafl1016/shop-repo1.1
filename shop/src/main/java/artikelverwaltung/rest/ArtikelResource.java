@@ -57,7 +57,7 @@ public class ArtikelResource {
         // private ArtikelService as;
 
         @Inject
-        //private UriHelper uriHelper;
+        private UriHelper uriHelper;
 
         // @PostConstruct
         // private void postConstruct() {
@@ -90,11 +90,19 @@ public class ArtikelResource {
                 }
 
                 return Response.ok(artikel)
-                                //.links(getTransitionalLinks(artikel, uriInfo))
+                                //.links(getTransitionalLinks(artikel, uriInfo))//TODO Was macht das?
                 		.build();
         }
+        @POST
+        @Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
+        @Produces
+        public Response createArtikel(Artikel artikel) {
+                // TODO Anwendungskern statt Mock, Verwendung von Locale
+                artikel = Mock.createArtikel(artikel);
+                return Response.created(getUriArtikel(artikel, uriInfo)).build();
+        }
 
-        /*private Link[] getTransitionalLinks(Artikel artikel, UriInfo uriInfo) {
+       private Link[] getTransitionalLinks(Artikel artikel, UriInfo uriInfo) {
                 final Link self = Link.fromUri(getUriArtikel(artikel, uriInfo))
                                 .rel(SELF_LINK).build();
 
@@ -103,9 +111,9 @@ public class ArtikelResource {
 
         public URI getUriArtikel(Artikel artikel, UriInfo uriInfo) {
                 return uriHelper.getUri(ArtikelResource.class, "findArtikelById",
-                                artikel.getArtikelNr(), uriInfo);
+                                artikel.getId(), uriInfo);
         }
-*/
+
 
 /*
         @PUT
