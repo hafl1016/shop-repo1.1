@@ -7,9 +7,11 @@ import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 import static javax.ws.rs.core.MediaType.TEXT_XML;
 
 
+
 //import java.lang.invoke.MethodHandles;
 import java.net.URI;
 import java.util.List;
+
 
 
 //import javax.annotation.PostConstruct;
@@ -33,6 +35,7 @@ import javax.ws.rs.core.UriInfo;
 
 
 
+
 //import de.shop.artikelverwaltung.service.ArtikelService;
 //import de.shop.util.interceptor.Log;
 import de.shop.util.rest.NotFoundException;
@@ -41,13 +44,13 @@ import de.shop.util.Mock;
 import artikelverwaltung.domain.*;
 
 @Path("/artikel")
-@Produces({ APPLICATION_JSON, APPLICATION_XML + ";qs=0.75",
-                TEXT_XML + ";qs=0.5" })
+@Produces({ APPLICATION_JSON, APPLICATION_XML + ";qs=0.75",TEXT_XML + ";qs=0.5" })
 @Consumes
 // @Log
 public class ArtikelResource {
         @Context
         private UriInfo uriInfo;
+        public static final String ARTIKEL_ID_PATH_PARAM = "artikelId";
 
         // private static final Logger LOGGER = Logger.getLogger(MethodHandles
         // .lookup().lookupClass());
@@ -81,8 +84,8 @@ public class ArtikelResource {
         }
 
         @GET
-        @Path("{id:[1-9][0-9]*}")
-        public Response findArtikelById(@PathParam("id") int id) {
+        @Path("{" + ARTIKEL_ID_PATH_PARAM +"{id:[1-9][0-9]*}")
+        public Response findArtikelById(@PathParam("artikelid") int id) {
                 final Artikel artikel = Mock.findArtikelById(id);
                 if (artikel == null) {
                         throw new NotFoundException("Kein Artikel mit der Artikelnummer "
@@ -90,7 +93,7 @@ public class ArtikelResource {
                 }
 
                 return Response.ok(artikel)
-                                //.links(getTransitionalLinks(artikel, uriInfo))//TODO Was macht das?
+                               .links(getTransitionalLinks(artikel, uriInfo))//TODO Was macht das?
                 		.build();
         }
         @POST
