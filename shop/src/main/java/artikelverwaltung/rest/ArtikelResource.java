@@ -8,9 +8,11 @@ import static javax.ws.rs.core.MediaType.TEXT_XML;
 
 
 
+
 //import java.lang.invoke.MethodHandles;
 import java.net.URI;
 import java.util.List;
+
 
 
 
@@ -36,6 +38,8 @@ import javax.ws.rs.core.UriInfo;
 
 
 
+
+import de.shop.kundenverwaltung.domain.AbstractKunde;
 //import de.shop.artikelverwaltung.service.ArtikelService;
 //import de.shop.util.interceptor.Log;
 import de.shop.util.rest.NotFoundException;
@@ -50,7 +54,7 @@ import artikelverwaltung.domain.*;
 public class ArtikelResource {
         @Context
         private UriInfo uriInfo;
-        public static final String ARTIKEL_ID_PATH_PARAM = "artikelId";
+       
 
         // private static final Logger LOGGER = Logger.getLogger(MethodHandles
         // .lookup().lookupClass());
@@ -84,8 +88,8 @@ public class ArtikelResource {
         }
 
         @GET
-        @Path("{" + ARTIKEL_ID_PATH_PARAM +"{id:[1-9][0-9]*}")
-        public Response findArtikelById(@PathParam("artikelid") int id) {
+        @Path("{id:[1-9][0-9]*}")
+        public Response findArtikelById(@PathParam("id") int id) {
                 final Artikel artikel = Mock.findArtikelById(id);
                 if (artikel == null) {
                         throw new NotFoundException("Kein Artikel mit der Artikelnummer "
@@ -93,7 +97,7 @@ public class ArtikelResource {
                 }
 
                 return Response.ok(artikel)
-                               .links(getTransitionalLinks(artikel, uriInfo))//TODO Was macht das?
+                               //.links(getTransitionalLinks(artikel, uriInfo))//TODO Was macht das?
                 		.build();
         }
         @POST
@@ -104,6 +108,7 @@ public class ArtikelResource {
                 artikel = Mock.createArtikel(artikel);
                 return Response.created(getUriArtikel(artikel, uriInfo)).build();
         }
+    	
 
        private Link[] getTransitionalLinks(Artikel artikel, UriInfo uriInfo) {
                 final Link self = Link.fromUri(getUriArtikel(artikel, uriInfo))
@@ -117,13 +122,12 @@ public class ArtikelResource {
                                 artikel.getId(), uriInfo);
         }
 
-
-/*
+    	
         @PUT
         @Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
         @Produces
         public void updateArtikel(Artikel artikel) {
                 Mock.updateArtikel(artikel);
-        }*/
+        }
 
 }

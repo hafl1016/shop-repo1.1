@@ -153,6 +153,22 @@ public final class Mock {
                  artikelList.add(artikel);
          }
          return artikelList;
- }
+	 }
 	private Mock() { /**/ }
+
+	public static void updateArtikel(Artikel artikel) {
+		System.out.println("Aktualisierter Artikel: " + artikel);
+		}
+
+	public static Bestellung createBestellung(Bestellung best) {
+			best.setBestelldatum("14.2.13");
+            final long nummer= best.getBestelldatum().length();
+            best.setId(nummer);
+            System.out.println("Neue Bestellung: " + best);
+            return best;
+    }
+	
 }
+		
+
+

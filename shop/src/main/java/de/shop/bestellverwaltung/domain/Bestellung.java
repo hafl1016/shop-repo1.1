@@ -17,6 +17,7 @@ public class Bestellung implements Serializable {
 	
 	private Long id;
 	private boolean ausgeliefert;
+	private String bestelldatum;
 	
 	@XmlTransient
 	private AbstractKunde kunde;
@@ -28,6 +29,12 @@ public class Bestellung implements Serializable {
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public String getBestelldatum() {
+		return bestelldatum;
+	}
+	public void setBestelldatum(String bestelldatum) {
+		this.bestelldatum = bestelldatum;
 	}
 	public boolean isAusgeliefert() {
 		return ausgeliefert;
