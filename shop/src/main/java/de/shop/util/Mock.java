@@ -12,9 +12,6 @@ import de.shop.kundenverwaltung.domain.Firmenkunde;
 import de.shop.kundenverwaltung.domain.HobbyType;
 import de.shop.kundenverwaltung.domain.Privatkunde;
 
-/**
- * Emulation des Anwendungskerns
- */
 public final class Mock {
 	private static final int MAX_ID = 99;
 	private static final int MAX_KUNDEN = 8;
@@ -27,13 +24,16 @@ public final class Mock {
 		
 		final AbstractKunde kunde = id % 2 == 1 ? new Privatkunde() : new Firmenkunde();
 		kunde.setId(id);
-		kunde.setNachname("Nachname" + id);
+		kunde.setVorname("Max");
+		kunde.setNachname("Mustermann");
 		kunde.setEmail("" + id + "@hska.de");
 		
 		final Adresse adresse = new Adresse();
-		adresse.setId(id + 1);        // andere ID fuer die Adresse
+		adresse.setId(id + 1);
 		adresse.setPlz("12345");
-		adresse.setOrt("Testort");
+		adresse.setOrt("Musterott");
+		adresse.setStrasse("Musterstraße");
+		adresse.setHausnr(""+id);
 		adresse.setKunde(kunde);
 		kunde.setAdresse(adresse);
 		
