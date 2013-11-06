@@ -2,26 +2,32 @@ package artikelverwaltung.domain;
 
 public class Artikel {
 
-	private Long id;
+	private int id;
 	private String bezeichnung;
-	private long preis;
-	public Long getId() {
+	private double preis;
+	public int getId() {
 		return id;
 	}
 	public String getBezeichnung() {
 		return bezeichnung;
 	}
-	public long getPreis() {
+	public double getPreis() {
 		return preis;
 	}
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public void setBezeichnung(String bezeichnung) {
 		this.bezeichnung = bezeichnung;
 	}
-	public void setPreis(long preis) {
+	public void setPreis(double preis) {
 		this.preis = preis;
+	}
+	
+	@Override
+	public String toString() {
+		return "Artikel [id=" + id + ", bezeichnung=" + bezeichnung
+				+ ", preis=" + preis + "]";
 	}
 	@Override
 	public int hashCode() {
@@ -29,8 +35,10 @@ public class Artikel {
 		int result = 1;
 		result = prime * result
 				+ ((bezeichnung == null) ? 0 : bezeichnung.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + (int) (preis ^ (preis >>> 32));
+		result = prime * result + id;
+		long temp;
+		temp = Double.doubleToLongBits(preis);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 	@Override
@@ -47,20 +55,14 @@ public class Artikel {
 				return false;
 		} else if (!bezeichnung.equals(other.bezeichnung))
 			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
+		if (id != other.id)
 			return false;
-		if (preis != other.preis)
+		if (Double.doubleToLongBits(preis) != Double
+				.doubleToLongBits(other.preis))
 			return false;
 		return true;
 	}
-	@Override
-	public String toString() {
-		return "Artikel [id=" + id + ", bezeichnung=" + bezeichnung
-				+ ", preis=" + preis + "]";
-	}
+	
 	
 	
 }
