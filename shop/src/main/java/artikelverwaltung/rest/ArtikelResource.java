@@ -5,17 +5,9 @@ import static de.shop.util.Constants.SELF_LINK;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 import static javax.ws.rs.core.MediaType.TEXT_XML;
-
-
-
-
 //import java.lang.invoke.MethodHandles;
 import java.net.URI;
 import java.util.List;
-
-
-
-
 //import javax.annotation.PostConstruct;
 //import javax.annotation.PreDestroy;
 import javax.inject.Inject;
@@ -31,15 +23,8 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Link;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-
 //import org.jboss.logging.Logger;
-
-
-
-
-
-
-import de.shop.kundenverwaltung.domain.AbstractKunde;
+//import de.shop.kundenverwaltung.domain.AbstractKunde;
 //import de.shop.artikelverwaltung.service.ArtikelService;
 //import de.shop.util.interceptor.Log;
 import de.shop.util.rest.NotFoundException;
