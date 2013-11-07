@@ -116,7 +116,7 @@ public final class Mock {
   }
   
   public static Position findPositionById(int id, int bid) {
-          if (id > MAX_ID) {
+          if (id > MAX_POSITIONEN || bid > MAX_BESTELLUNGEN) {
                   return null;
           }
 
