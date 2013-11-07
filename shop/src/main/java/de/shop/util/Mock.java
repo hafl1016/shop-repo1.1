@@ -162,7 +162,7 @@ public final class Mock {
 		final String bestdat=best.getBestelldatum();
 		best.setBestelldatum(bestdat);
         final long nummer= best.getBestelldatum().length();
-        best.setId(nummer);
+        best.setId(nummer);   
         System.out.println("Neue Bestellung: " + best);
         return best;
 }
@@ -201,9 +201,21 @@ public final class Mock {
 		System.out.println("Aktualisierter Artikel: " + artikel);
 		}
 
-	
+	public static Position createPositionen(Position pos) {
+		final Artikel posart= pos.getArtikel();
+		pos.setArtikel(posart);
+		final int posanzahl= pos.getAnzahl();
+		pos.setAnzahl(posanzahl);
+		final int posid=pos.getAnzahl()*3;
+		pos.setId(posid);
+	    System.out.println("Neue Position: " + pos);
+	    return pos;
+	}
 	
 }
+
+	
+	
 		
 
 

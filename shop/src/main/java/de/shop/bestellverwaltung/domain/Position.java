@@ -8,14 +8,14 @@ import artikelverwaltung.domain.*;
 
 @XmlRootElement
 public class Position {
-        private int id;
+        private long id;
         private int bestellid;
         private Artikel artikel;
         private int anzahl;
-        public int getId() {
+        public long getId() {
                 return id;
         }
-        public void setId(int id) {
+        public void setId(long id) {
                 this.id = id;
         }
         public int getBestellid() {
@@ -39,6 +39,11 @@ public class Position {
         public Position() {
                 super();
         }
+		@Override
+		public String toString() {
+			return "Position [id=" + id + ", bestellid=" + bestellid
+					+ ", artikel=" + artikel + ", anzahl=" + anzahl + "]";
+		}
 
 
 }
