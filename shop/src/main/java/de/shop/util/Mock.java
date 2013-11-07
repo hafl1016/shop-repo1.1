@@ -35,7 +35,7 @@ public final class Mock {
 		adresse.setId(id + 1);
 		adresse.setPlz("12345");
 		adresse.setOrt("Musterort");
-		adresse.setStrasse("Musterstraße");
+		adresse.setStrasse("Musterstrasse");
 		adresse.setHausnr(""+id);
 		adresse.setKunde(kunde);
 		kunde.setAdresse(adresse);
@@ -128,7 +128,7 @@ public final class Mock {
         artikel.setId(2);
         artikel.setPreis(pr);
 
-        System.out.println("Neuer Artikel Artikel: " + artikel);
+        System.out.println("Neuer Artikel: " + artikel);
         return artikel;
 }
     public static Bestellung createBestellung(Bestellung best) {
