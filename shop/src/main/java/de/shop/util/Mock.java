@@ -38,7 +38,7 @@ public final class Mock {
 		adresse.setPlz("12345");
 		adresse.setOrt("Musterort");
 		adresse.setStrasse("Musterstrasse");
-		adresse.setHausnr(""+id);
+		adresse.setHausnr("" + id);
 		adresse.setKunde(kunde);
 		kunde.setAdresse(adresse);
 		
@@ -106,7 +106,7 @@ public final class Mock {
 	}
 	  public static List<Position> findAllPositionen(int id) {
           
-		  int anzahl =10;
+		  int anzahl = 10;
           final List<Position> positionList = new ArrayList<>(anzahl);
           for (int i = 1; i <= anzahl; i++) {
                   final Position position = findPositionById(i, id);
@@ -122,7 +122,7 @@ public final class Mock {
 
           final Position position = new Position();
           position.setId(id);
-          position.setAnzahl(id+3);
+          position.setAnzahl(id + 3);
           position.setArtikel(findArtikelById(id));
           position.setBestellid(bid);
 
