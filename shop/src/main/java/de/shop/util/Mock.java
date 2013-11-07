@@ -161,6 +161,7 @@ public final class Mock {
     public static Bestellung createBestellung(Bestellung best) {
 		final String bestdat = best.getBestelldatum();
 		best.setBestelldatum(bestdat);
+		//TODO evt. Verbindung zu Posten herstellen (bzgl. POST)
         final long nummer = best.getBestelldatum().length();
         best.setId(nummer);   
         System.out.println("Neue Bestellung: " + best);
