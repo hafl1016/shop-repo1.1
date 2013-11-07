@@ -105,12 +105,15 @@ public final class Mock {
 	public static AbstractKunde createKunde(AbstractKunde kunde) {
 		// Neue IDs fuer Kunde und zugehoerige Adresse
 		// Ein neuer Kunde hat auch keine Bestellungen
+		//TODO CreatePrivat&CreateGeschäftskunde
 		final String nachname = kunde.getNachname();
 		kunde.setId(Long.valueOf(nachname.length()));
 		final Adresse adresse = kunde.getAdresse();
 		adresse.setId((Long.valueOf(nachname.length())) + 1);
 		adresse.setKunde(kunde);
 		kunde.setBestellungen(null);
+		kunde.setAdresse(adresse);
+		
 		
 		System.out.println("Neuer Kunde: " + kunde);
 		return kunde;
@@ -118,12 +121,23 @@ public final class Mock {
     public static Artikel createArtikel(Artikel artikel) {
 
         // TODO Artikelnummer anpassen (%3=0)
-        artikel.setBezeichnung("Artikel1neu");
-        artikel.setId(3);
-        artikel.setPreis(13.32);
+        final String name = artikel.getBezeichnung();
+        final double pr= artikel.getPreis();
+        
+    	artikel.setBezeichnung(name);
+        artikel.setId(2);
+        artikel.setPreis(pr);
 
         System.out.println("Neuer Artikel Artikel: " + artikel);
         return artikel;
+}
+    public static Bestellung createBestellung(Bestellung best) {
+		final String bestdat=best.getBestelldatum();
+		best.setBestelldatum(bestdat);
+        final long nummer= best.getBestelldatum().length();
+        best.setId(nummer);
+        System.out.println("Neue Bestellung: " + best);
+        return best;
 }
 
 	public static void updateKunde(AbstractKunde kunde) {
@@ -160,13 +174,7 @@ public final class Mock {
 		System.out.println("Aktualisierter Artikel: " + artikel);
 		}
 
-	public static Bestellung createBestellung(Bestellung best) {
-			best.setBestelldatum("14.2.13");
-            final long nummer= best.getBestelldatum().length();
-            best.setId(nummer);
-            System.out.println("Neue Bestellung: " + best);
-            return best;
-    }
+	
 	
 }
 		

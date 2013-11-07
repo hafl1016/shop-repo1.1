@@ -97,7 +97,7 @@ public class ArtikelResource {
                 }
 
                 return Response.ok(artikel)
-                               //.links(getTransitionalLinks(artikel, uriInfo))//TODO Was macht das?
+                               .links(getTransitionalLinks(artikel, uriInfo))//TODO Was macht das?
                 		.build();
         }
         @POST
