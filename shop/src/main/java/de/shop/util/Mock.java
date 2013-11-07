@@ -93,7 +93,7 @@ public final class Mock {
 		if (id > MAX_ID) {
 			return null;
 		}
-		final int it= id.intValue();
+		final int it = id.intValue();
 		final AbstractKunde kunde = findKundeById(id + 1);  // andere ID fuer den Kunden
 
 		final Bestellung bestellung = new Bestellung();
@@ -149,7 +149,7 @@ public final class Mock {
 
         // TODO Artikelnummer anpassen (%3=0)
         final String name = artikel.getBezeichnung();
-        final double pr= artikel.getPreis();
+        final double pr = artikel.getPreis();
         
     	artikel.setBezeichnung(name);
         artikel.setId(2);
@@ -159,9 +159,9 @@ public final class Mock {
         return artikel;
 }
     public static Bestellung createBestellung(Bestellung best) {
-		final String bestdat=best.getBestelldatum();
+		final String bestdat = best.getBestelldatum();
 		best.setBestelldatum(bestdat);
-        final long nummer= best.getBestelldatum().length();
+        final long nummer = best.getBestelldatum().length();
         best.setId(nummer);   
         System.out.println("Neue Bestellung: " + best);
         return best;
@@ -179,7 +179,7 @@ public final class Mock {
                 return null;
         }
 
-        final Artikel artikel= new Artikel();
+        final Artikel artikel = new Artikel();
         
         artikel.setId(id);
         artikel.setBezeichnung("Fahrrad");
@@ -202,11 +202,11 @@ public final class Mock {
 		}
 
 	public static Position createPositionen(Position pos) {
-		final Artikel posart= pos.getArtikel();
+		final Artikel posart = pos.getArtikel();
 		pos.setArtikel(posart);
-		final int posanzahl= pos.getAnzahl();
+		final int posanzahl = pos.getAnzahl();
 		pos.setAnzahl(posanzahl);
-		final int posid=pos.getAnzahl()*3;
+		final int posid = pos.getAnzahl() * 3;
 		pos.setId(posid);
 	    System.out.println("Neue Position: " + pos);
 	    return pos;
