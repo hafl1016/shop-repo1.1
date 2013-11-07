@@ -6,6 +6,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 import static javax.ws.rs.core.MediaType.TEXT_XML;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -15,11 +16,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Link;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import artikelverwaltung.domain.Artikel;
 import de.shop.bestellverwaltung.domain.Bestellung;
+import de.shop.bestellverwaltung.domain.Position;
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.kundenverwaltung.rest.KundeResource;
 import de.shop.util.Mock;
@@ -80,6 +84,9 @@ public class BestellungResource {
 	public URI getUriBestellung(Bestellung bestellung, UriInfo uriInfo) {
 		return uriHelper.getUri(BestellungResource.class, "findBestellungById", bestellung.getId(), uriInfo);
 	}
+	public URI getUriBestellung(Position pos, UriInfo uriInfo) {
+		return uriHelper.getUri(BestellungResource.class, "findPositionenByBestellId", pos.getId(), uriInfo);
+	}
 	@POST
 	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
@@ -87,6 +94,32 @@ public class BestellungResource {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
 		best = Mock.createBestellung(best);
 		return Response.created(getUriBestellung(best, uriInfo))
+			           .build();
+	}
+	
+	@GET
+	@Path("{id:[1-9][0-9]*}/positionen")
+	public Response findPositionenByBestellId(@PathParam("id") int id) {
+		// TODO Anwendungskern statt Mock, Verwendung von Locale
+		final List<Position> poslist = Mock.findAllPositionen(id);
+		if (poslist==null) {
+			throw new NotFoundException("Keine Positionen mit der BestellID " + id + " gefunden.");
+		}
+              
+        return Response.ok(new GenericEntity<List<? extends Position>>(poslist) { })
+        		.build();
+      }
+	
+	
+	@POST
+	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
+	@Produces
+	@Path("{id:[1-9][0-9]*}/positionen")
+	public Response createPosition(Position pos) {
+		// TODO Anwendungskern statt Mock, Verwendung von Locale
+		pos= Mock.createPositionen(pos);
+	
+		return Response.created(getUriBestellung(pos, uriInfo))
 			           .build();
 	}
 }
