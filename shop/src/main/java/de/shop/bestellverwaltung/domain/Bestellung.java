@@ -2,6 +2,7 @@ package de.shop.bestellverwaltung.domain;
 
 import java.io.Serializable;
 import java.net.URI;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -18,6 +19,7 @@ public class Bestellung implements Serializable {
 	private Long id;
 	private boolean ausgeliefert;
 	private String bestelldatum;
+	 private List<Position> positionen;
 	
 	@XmlTransient
 	private AbstractKunde kunde;
@@ -55,7 +57,12 @@ public class Bestellung implements Serializable {
 	public void setKundeUri(URI kundeUri) {
 		this.kundeUri = kundeUri;
 	}
-	
+	 public void setPositionen(List<Position> positionen) {
+         this.positionen = positionen;
+ }
+	  public List<Position> getPositionen() {
+          return positionen;
+  }
 	@Override
 	public int hashCode() {
 		final int prime = 31;

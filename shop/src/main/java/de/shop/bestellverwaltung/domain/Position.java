@@ -2,8 +2,7 @@ package de.shop.bestellverwaltung.domain;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import de.shop.kundenverwaltung.domain.*;
-import de.shop.kundenverwaltung.domain.AbstractKunde;
+
 import artikelverwaltung.domain.*;
 
 
