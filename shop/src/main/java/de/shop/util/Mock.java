@@ -195,7 +195,7 @@ public final class Mock {
                  artikelList.add(artikel);
          }
          return artikelList;
-	 }
+	}
 	private Mock() { /**/ }
 
 	public static void updateArtikel(Artikel artikel) {
@@ -211,6 +211,11 @@ public final class Mock {
 		pos.setId(posid);
 	    System.out.println("Neue Position: " + pos);
 	    return pos;
+	}
+
+	public static Position updatePositionen(Position pos) {
+		System.out.println("Aktualisierte Postition: " + pos);
+		return pos;
 	}
 	
 }
