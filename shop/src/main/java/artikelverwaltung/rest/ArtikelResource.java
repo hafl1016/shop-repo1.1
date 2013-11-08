@@ -33,7 +33,7 @@ import de.shop.util.Mock;
 import artikelverwaltung.domain.*;
 
 @Path("/artikel")
-@Produces({ APPLICATION_JSON, APPLICATION_XML + ";qs=0.75",TEXT_XML + ";qs=0.5" })
+@Produces({ APPLICATION_JSON, APPLICATION_XML + ";qs=0.75", TEXT_XML + ";qs=0.5" })
 @Consumes
 // @Log
 public class ArtikelResource {

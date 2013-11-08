@@ -11,5 +11,5 @@ public final class Constants {
 	public static final String FIRST_LINK = "first";
 	public static final String LAST_LINK = "last";
 
-	private Constants() {}
+	private Constants() { }
 }

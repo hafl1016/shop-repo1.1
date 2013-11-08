@@ -19,7 +19,7 @@ public final class Mock {
 	private static final int MAX_KUNDEN = 8;
 	private static final int MAX_BESTELLUNGEN = 4;
 	private static final int MAX_ARTIKEL = 10;
-	private static final long MAX_POSITIONEN= 10;
+	private static final long MAX_POSITIONEN = 10;
 
 
 	public static AbstractKunde findKundeById(Long id) {
@@ -106,7 +106,7 @@ public final class Mock {
 	}
 	  public static List<Position> findAllPositionen(int id) {
           
-		  int anzahl = 10;
+		  final int anzahl = 10;
           final List<Position> positionList = new ArrayList<>(anzahl);
           for (int i = 1; i <= anzahl; i++) {
                   final Position position = findPositionById(i, id);

@@ -99,7 +99,7 @@ public class BestellungResource {
 	public Response findPositionenByBestellId(@PathParam("id") int id) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
 		final List<Position> poslist = Mock.findAllPositionen(id);
-		if (poslist==null) {
+		if (poslist == null) {
 			throw new NotFoundException("Keine Positionen mit der BestellID " + id + " gefunden.");
 		}
               
@@ -114,7 +114,7 @@ public class BestellungResource {
 	@Path("{id:[1-9][0-9]*}/positionen")
 	public Response createPosition(Position pos) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
-		pos= Mock.createPositionen(pos);
+		pos = Mock.createPositionen(pos);
 	
 		return Response.created(getUriBestellung(pos, uriInfo))
 			           .build();
