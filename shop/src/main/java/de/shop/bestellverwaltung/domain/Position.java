@@ -3,7 +3,8 @@ package de.shop.bestellverwaltung.domain;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
-import artikelverwaltung.domain.*;
+
+import de.shop.artikelverwaltung.domain.*;
 
 
 @XmlRootElement

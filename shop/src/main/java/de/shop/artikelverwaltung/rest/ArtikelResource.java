@@ -1,13 +1,15 @@
-package artikelverwaltung.rest;
+package de.shop.artikelverwaltung.rest;
 
 
 import static de.shop.util.Constants.SELF_LINK;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 import static javax.ws.rs.core.MediaType.TEXT_XML;
+
 //import java.lang.invoke.MethodHandles;
 import java.net.URI;
 import java.util.List;
+
 //import javax.annotation.PostConstruct;
 //import javax.annotation.PreDestroy;
 import javax.inject.Inject;
@@ -23,6 +25,8 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Link;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+
+import de.shop.artikelverwaltung.domain.*;
 //import org.jboss.logging.Logger;
 //import de.shop.kundenverwaltung.domain.AbstractKunde;
 //import de.shop.artikelverwaltung.service.ArtikelService;
@@ -30,7 +34,6 @@ import javax.ws.rs.core.UriInfo;
 import de.shop.util.rest.NotFoundException;
 import de.shop.util.rest.UriHelper;
 import de.shop.util.Mock;
-import artikelverwaltung.domain.*;
 
 @Path("/artikel")
 @Produces({ APPLICATION_JSON, APPLICATION_XML + ";qs=0.75", TEXT_XML + ";qs=0.5" })
