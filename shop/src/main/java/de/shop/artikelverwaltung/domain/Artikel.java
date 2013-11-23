@@ -1,11 +1,24 @@
 package de.shop.artikelverwaltung.domain;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class Artikel {
 
-	
+	@NotNull
 	private long id;
+	
+	@NotEmpty
+	@Size(min = 2, max = 50)
+	@Pattern(regexp = "[A-ZÄÖÜ][a-zäöüß]+")
 	private String bezeichnung;
+	
+	@NotEmpty
 	private double preis;
+	
 	public long getId() {
 		return id;
 	}
