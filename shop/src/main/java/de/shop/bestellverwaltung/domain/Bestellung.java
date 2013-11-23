@@ -4,8 +4,13 @@ import java.io.Serializable;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.AssertFalse;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 
@@ -18,10 +23,18 @@ public class Bestellung implements Serializable {
 	
 	
 	private Long id;
-	private boolean ausgeliefert;
-	private String bestelldatum;
-	 private List<Position> positionen;
 	
+	@AssertFalse(message = "{bestellverwaltung.bestellung.istAusgeliefert.assertFalse}")
+	private boolean ausgeliefert;
+	
+	@NotNull(message = "{bestellverwaltung.bestellung.bestelldatum.notNull}")
+	private String bestelldatum;
+	
+	@NotEmpty
+	@Valid
+	private List<Position> positionen;
+	
+	@Valid
 	@XmlTransient
 	private AbstractKunde kunde;
 	
