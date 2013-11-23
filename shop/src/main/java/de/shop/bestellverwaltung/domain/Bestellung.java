@@ -16,6 +16,7 @@ import de.shop.kundenverwaltung.domain.AbstractKunde;
 public class Bestellung implements Serializable {
 	private static final long serialVersionUID = 1618359234119003714L;
 	
+	
 	private Long id;
 	private boolean ausgeliefert;
 	private String bestelldatum;
@@ -29,24 +30,31 @@ public class Bestellung implements Serializable {
 	public Long getId() {
 		return id;
 	}
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
 	public String getBestelldatum() {
 		return bestelldatum;
 	}
+	
 	public void setBestelldatum(String bestelldatum) {
 		this.bestelldatum = bestelldatum;
 	}
+	
 	public boolean isAusgeliefert() {
 		return ausgeliefert;
 	}
+	
 	public void setAusgeliefert(boolean ausgeliefert) {
 		this.ausgeliefert = ausgeliefert;
 	}
+	
 	public AbstractKunde getKunde() {
 		return kunde;
 	}
+	
 	public void setKunde(AbstractKunde kunde) {
 		this.kunde = kunde;
 	}
@@ -54,15 +62,19 @@ public class Bestellung implements Serializable {
 	public URI getKundeUri() {
 		return kundeUri;
 	}
+	
 	public void setKundeUri(URI kundeUri) {
 		this.kundeUri = kundeUri;
 	}
+	
 	 public void setPositionen(List<Position> positionen) {
          this.positionen = positionen;
- }
+	 
+	 }
 	  public List<Position> getPositionen() {
           return positionen;
-  }
+	 }
+	  
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -70,6 +82,7 @@ public class Bestellung implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

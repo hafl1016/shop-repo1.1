@@ -15,6 +15,8 @@ import de.shop.kundenverwaltung.domain.HobbyType;
 import de.shop.kundenverwaltung.domain.Privatkunde;
 
 public final class Mock {
+	
+	
 	private static final int MAX_ID = 99;
 	private static final int MAX_KUNDEN = 8;
 	private static final int MAX_BESTELLUNGEN = 4;
@@ -23,6 +25,7 @@ public final class Mock {
 
 
 	public static AbstractKunde findKundeById(Long id) {
+		
 		if (id > MAX_ID) {
 			return null;
 		}
@@ -43,17 +46,20 @@ public final class Mock {
 		kunde.setAdresse(adresse);
 		
 		if (kunde.getClass().equals(Privatkunde.class)) {
+			
 			final Privatkunde privatkunde = (Privatkunde) kunde;
 			final Set<HobbyType> hobbies = new HashSet<>();
 			hobbies.add(HobbyType.LESEN);
 			hobbies.add(HobbyType.REISEN);
 			privatkunde.setHobbies(hobbies);
+			
 		}
 		
 		return kunde;
 	}
 
 	public static List<AbstractKunde> findAllKunden() {
+		
 		final int anzahl = MAX_KUNDEN;
 		final List<AbstractKunde> kunden = new ArrayList<>(anzahl);
 		for (int i = 1; i <= anzahl; i++) {
@@ -104,7 +110,8 @@ public final class Mock {
 		
 		return bestellung;
 	}
-	  public static List<Position> findAllPositionen(int id) {
+	
+	public static List<Position> findAllPositionen(int id) {
           
 		  final int anzahl = 10;
           final List<Position> positionList = new ArrayList<>(anzahl);
@@ -113,9 +120,9 @@ public final class Mock {
                   positionList.add(position);
           }
           return positionList;
-  }
+	}
   
-  public static Position findPositionById(int id, int bid) {
+	public static Position findPositionById(int id, int bid) {
           if (id > MAX_POSITIONEN || bid > MAX_BESTELLUNGEN) {
                   return null;
           }
@@ -127,7 +134,7 @@ public final class Mock {
           position.setBestellid(bid);
 
           return position;
-  }
+	}
 
 	public static AbstractKunde createKunde(AbstractKunde kunde) {
 		// Neue IDs fuer Kunde und zugehoerige Adresse
@@ -141,10 +148,10 @@ public final class Mock {
 		kunde.setBestellungen(null);
 		kunde.setAdresse(adresse);
 		
-		
 		System.out.println("Neuer Kunde: " + kunde);
 		return kunde;
 	}
+	
     public static Artikel createArtikel(Artikel artikel) {
 
         // TODO Artikelnummer anpassen (%3=0)
@@ -157,7 +164,8 @@ public final class Mock {
 
         System.out.println("Neuer Artikel: " + artikel);
         return artikel;
-}
+    }
+    
     public static Bestellung createBestellung(Bestellung best) {
 		final String bestdat = best.getBestelldatum();
 		best.setBestelldatum(bestdat);
@@ -166,7 +174,7 @@ public final class Mock {
         best.setId(nummer);   
         System.out.println("Neue Bestellung: " + best);
         return best;
-}
+    }
 
 	public static void updateKunde(AbstractKunde kunde) {
 		System.out.println("Aktualisierter Kunde: " + kunde);
@@ -175,6 +183,7 @@ public final class Mock {
 	public static void deleteKunde(Long kundeId) {
 		System.out.println("Kunde mit ID=" + kundeId + " geloescht");
 	}
+	
 	public static Artikel findArtikelById(int id) {
         if (id > MAX_ARTIKEL) {
                 return null;
@@ -186,8 +195,9 @@ public final class Mock {
         artikel.setBezeichnung("Fahrrad");
         artikel.setPreis(213.3);
         return artikel;
-}
-	 public static List<Artikel> findAllArtikel() {
+	
+	}
+	public static List<Artikel> findAllArtikel() {
          final int anzahl = MAX_ARTIKEL;
          final List<Artikel> artikelList = new ArrayList<>(anzahl);
          for (int i = 1; i <= anzahl; i++) {
@@ -196,11 +206,12 @@ public final class Mock {
          }
          return artikelList;
 	}
+	
 	private Mock() { /**/ }
 
 	public static void updateArtikel(Artikel artikel) {
 		System.out.println("Aktualisierter Artikel: " + artikel);
-		}
+	}
 
 	public static Position createPositionen(Position pos) {
 		final Artikel posart = pos.getArtikel();
@@ -219,9 +230,3 @@ public final class Mock {
 	}
 	
 }
-
-	
-	
-		
-
-

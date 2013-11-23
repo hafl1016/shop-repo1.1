@@ -6,6 +6,8 @@ import javax.xml.bind.annotation.XmlTransient;
 
 public class Adresse implements Serializable {
 	private static final long serialVersionUID = -3029272617931844501L;
+	
+	
 	private Long id;
 	private String strasse;
 	private String hausnr;
@@ -18,30 +20,39 @@ public class Adresse implements Serializable {
 	public Long getId() {
 		return id;
 	}
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
 	public String getStrasse() {
 		return strasse;
 	}
+	
 	public void setStrasse(String strasse) {
 		this.strasse = strasse;
 	}
+	
 	public String getHausnr() {
 		return hausnr;
 	}
+	
 	public void setHausnr(String hausnr) {
 		this.hausnr = hausnr;
 	}
+	
 	public String getPlz() {
 		return plz;
 	}
+	
 	public void setPlz(String plz) {
 		this.plz = plz;
 	}
+	
 	public String getOrt() {
 		return ort;
 	}
+	
 	public void setOrt(String ort) {
 		this.ort = ort;
 	}
@@ -49,9 +60,11 @@ public class Adresse implements Serializable {
 	public AbstractKunde getKunde() {
 		return kunde;
 	}
+	
 	public void setKunde(AbstractKunde kunde) {
 		this.kunde = kunde;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -64,6 +77,7 @@ public class Adresse implements Serializable {
 		result = prime * result + ((strasse == null) ? 0 : strasse.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
