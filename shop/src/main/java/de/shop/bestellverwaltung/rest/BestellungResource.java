@@ -34,6 +34,8 @@ import de.shop.util.rest.NotFoundException;
 @Produces({ APPLICATION_JSON, APPLICATION_XML + ";qs=0.75", TEXT_XML + ";qs=0.5" })
 @Consumes
 public class BestellungResource {
+	
+	
 	@Context
 	private UriInfo uriInfo;
 	
@@ -81,9 +83,11 @@ public class BestellungResource {
 	public URI getUriBestellung(Bestellung bestellung, UriInfo uriInfo) {
 		return uriHelper.getUri(BestellungResource.class, "findBestellungById", bestellung.getId(), uriInfo);
 	}
+	
 	public URI getUriBestellung(Position pos, UriInfo uriInfo) {
 		return uriHelper.getUri(BestellungResource.class, "findPositionenByBestellId", pos.getId(), uriInfo);
 	}
+	
 	@POST
 	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
@@ -105,7 +109,7 @@ public class BestellungResource {
               
         return Response.ok(new GenericEntity<List<? extends Position>>(poslist) { })
         		.build();
-      }
+	}
 	
 	
 	@POST
@@ -119,6 +123,7 @@ public class BestellungResource {
 		return Response.created(getUriBestellung(pos, uriInfo))
 			           .build();
 	}
+	
 	@PUT
 	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces

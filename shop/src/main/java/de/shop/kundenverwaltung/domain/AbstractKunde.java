@@ -23,6 +23,7 @@ import de.shop.bestellverwaltung.domain.Bestellung;
 public abstract class AbstractKunde implements Serializable {
 	private static final long serialVersionUID = 7401524595142572933L;
 	
+	
 	public static final String PRIVATKUNDE = "P";
 	public static final String FIRMENKUNDE = "F";
 	
@@ -40,36 +41,47 @@ public abstract class AbstractKunde implements Serializable {
 	public Long getId() {
 		return id;
 	}
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
 	public String getVorname() {
 		return vorname;
 	}
+	
 	public void setVorname(String vorname) {
 		this.vorname = vorname;
 	}
+	
 	public String getNachname() {
 		return nachname;
 	}
+	
 	public void setNachname(String nachname) {
 		this.nachname = nachname;
 	}
+	
 	public String getEmail() {
 		return email;
 	}
+	
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
 	public Adresse getAdresse() {
 		return adresse;
 	}
+	
 	public void setAdresse(Adresse adresse) {
 		this.adresse = adresse;
 	}
+	
 	public List<Bestellung> getBestellungen() {
 		return bestellungen;
 	}
+	
 	public void setBestellungen(List<Bestellung> bestellungen) {
 		this.bestellungen = bestellungen;
 	}
@@ -77,9 +89,11 @@ public abstract class AbstractKunde implements Serializable {
 	public URI getBestellungenUri() {
 		return bestellungenUri;
 	}
+	
 	public void setBestellungenUri(URI bestellungenUri) {
 		this.bestellungenUri = bestellungenUri;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

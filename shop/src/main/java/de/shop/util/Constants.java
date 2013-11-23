@@ -1,6 +1,8 @@
 package de.shop.util;
 
 public final class Constants {
+	
+	
 	public static final String REST_PATH = "/rest";
 
 	// Header-Links
