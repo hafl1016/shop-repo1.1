@@ -1,20 +1,37 @@
 package de.shop.bestellverwaltung.domain;
 
+import java.io.Serializable;
+
+import javax.persistence.Basic;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlRootElement;
-
-
+import javax.xml.bind.annotation.XmlTransient;
 
 import de.shop.artikelverwaltung.domain.*;
 
 
 @XmlRootElement
-public class Position {
-	
-	
+public class Position implements Serializable{
+
+		private static final long serialVersionUID = 2640612708567145520L;
+
+		@Id
+		@GeneratedValue
+		@Basic(optional = false)
         private long id;
+		
         private int bestellid;
+        
+        @XmlTransient
+        @Valid
         private Artikel artikel;
+        
+        @Pattern (regexp = "[1-9]?", message = "{bestellverwaltung.position.anzahl.pattern}")
         private int anzahl;
+        
         public long getId() {
                 return id;
         }
