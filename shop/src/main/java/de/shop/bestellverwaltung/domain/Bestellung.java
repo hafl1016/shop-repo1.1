@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.net.URI;
 import java.util.List;
 
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.Valid;
 import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.NotNull;
@@ -14,11 +18,18 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 
+/**
+ * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
+ */
+@Entity
 @XmlRootElement
 public class Bestellung implements Serializable {
-	private static final long serialVersionUID = 1618359234119003714L;
 	
-	
+	private static final long serialVersionUID = 5786357922626501278L;
+
+	@Id
+	@GeneratedValue
+	@Basic(optional = false)
 	private Long id;
 	
 	@AssertFalse(message = "{bestellverwaltung.bestellung.istAusgeliefert.assertFalse}")
@@ -27,7 +38,7 @@ public class Bestellung implements Serializable {
 	@NotNull(message = "{bestellverwaltung.bestellung.bestelldatum.notNull}")
 	private String bestelldatum;
 	
-	@NotEmpty
+	@NotEmpty(message = "{bestellverwaltung.bestellung.positionen.notEmpty}")
 	@Valid
 	private List<Position> positionen;
 	
