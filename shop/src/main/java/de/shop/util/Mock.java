@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 import de.shop.artikelverwaltung.domain.Artikel;
 import de.shop.bestellverwaltung.domain.Bestellung;
 import de.shop.bestellverwaltung.domain.Position;
@@ -81,7 +83,7 @@ public final class Mock {
 	}
 	
 
-	public static List<Bestellung> findBestellungenByKunde(AbstractKunde kunde) {
+	public static List<Bestellung> findBestellungenByKunde(@Valid AbstractKunde kunde) {
 		// Beziehungsgeflecht zwischen Kunde und Bestellungen aufbauen
 		final int anzahl = kunde.getId().intValue() % MAX_BESTELLUNGEN + 1;  // 1, 2, 3 oder 4 Bestellungen
 		final List<Bestellung> bestellungen = new ArrayList<>(anzahl);
@@ -136,7 +138,7 @@ public final class Mock {
           return position;
 	}
 
-	public static AbstractKunde createKunde(AbstractKunde kunde) {
+	public static AbstractKunde createKunde(@Valid AbstractKunde kunde) {
 		// Neue IDs fuer Kunde und zugehoerige Adresse
 		// Ein neuer Kunde hat auch keine Bestellungen
 		//TODO CreatePrivat&CreateGeschäftskunde
@@ -152,7 +154,7 @@ public final class Mock {
 		return kunde;
 	}
 	
-    public static Artikel createArtikel(Artikel artikel) {
+    public static Artikel createArtikel(@Valid Artikel artikel) {
 
         // TODO Artikelnummer anpassen (%3=0)
         final String name = artikel.getBezeichnung();
@@ -166,7 +168,7 @@ public final class Mock {
         return artikel;
     }
     
-    public static Bestellung createBestellung(Bestellung best) {
+    public static Bestellung createBestellung(@Valid Bestellung best) {
 		final String bestdat = best.getBestelldatum();
 		best.setBestelldatum(bestdat);
 		//TODO evt. Verbindung zu Posten herstellen (bzgl. POST)
@@ -176,7 +178,7 @@ public final class Mock {
         return best;
     }
 
-	public static void updateKunde(AbstractKunde kunde) {
+	public static void updateKunde(@Valid AbstractKunde kunde) {
 		System.out.println("Aktualisierter Kunde: " + kunde);
 	}
 
@@ -209,11 +211,11 @@ public final class Mock {
 	
 	private Mock() { /**/ }
 
-	public static void updateArtikel(Artikel artikel) {
+	public static void updateArtikel(@Valid Artikel artikel) {
 		System.out.println("Aktualisierter Artikel: " + artikel);
 	}
 
-	public static Position createPositionen(Position pos) {
+	public static Position createPositionen(@Valid Position pos) {
 		final Artikel posart = pos.getArtikel();
 		pos.setArtikel(posart);
 		final int posanzahl = pos.getAnzahl();
@@ -224,7 +226,7 @@ public final class Mock {
 	    return pos;
 	}
 
-	public static Position updatePositionen(Position pos) {
+	public static Position updatePositionen(@Valid Position pos) {
 		System.out.println("Aktualisierte Postition: " + pos);
 		return pos;
 	}
