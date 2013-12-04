@@ -1,9 +1,12 @@
 package de.shop.artikelverwaltung.domain;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -24,8 +27,8 @@ public class Artikel {
 			message = "{artikelverwaltung.artikel.bezeichnung.pattern}")
 	private String bezeichnung;
 	
-	@NotEmpty
-	private double preis;
+	@NotEmpty(message="{artikelverwaltung.artikel.preis.notempty}")
+	private BigDecimal preis;
 	
 	public long getId() {
 		return id;
@@ -35,7 +38,7 @@ public class Artikel {
 		return bezeichnung;
 	}
 	
-	public double getPreis() {
+	public BigDecimal getPreis() {
 		return preis;
 	}
 	
@@ -47,7 +50,7 @@ public class Artikel {
 		this.bezeichnung = bezeichnung;
 	}
 	
-	public void setPreis(double preis) {
+	public void setPreis(BigDecimal preis) {
 		this.preis = preis;
 	}
 	

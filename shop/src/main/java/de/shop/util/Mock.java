@@ -1,5 +1,6 @@
 package de.shop.util;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -158,7 +159,7 @@ public final class Mock {
 
         // TODO Artikelnummer anpassen (%3=0)
         final String name = artikel.getBezeichnung();
-        final double pr = artikel.getPreis();
+        final BigDecimal pr = artikel.getPreis();
         
     	artikel.setBezeichnung(name);
         artikel.setId(2);
@@ -195,7 +196,7 @@ public final class Mock {
         
         artikel.setId(id);
         artikel.setBezeichnung("Fahrrad");
-        artikel.setPreis(213.3);
+        artikel.setPreis(new BigDecimal("213.3"));
         return artikel;
 	
 	}
