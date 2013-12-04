@@ -2,38 +2,43 @@ package de.shop.kundenverwaltung.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Basic;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.hibernate.validator.constraints.NotEmpty;
 
 public class Adresse implements Serializable {
 	private static final long serialVersionUID = -3029272617931844501L;
 	
-	
-	@NotNull
+	@Id
+	@GeneratedValue
+	@Basic(optional=false)
 	private Long id;
 	
-	@NotEmpty
-	@Size(min = 2, max = 50)
-	@Pattern(regexp = "[A-ZÄÖÜ][a-zäöüß]+")
+	@NotNull(message="{kundenverwaltung.adresse.strasse.notNull}")
+	@Size(min = 2, max = 50,message="{kundenverwaltung.adresse.strasse.length}")
+	@Pattern(regexp = "[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+",
+			message="{kundenverwaltung.adresse.strasse.patternnot}")
 	private String strasse;
 	
-	@NotEmpty
-	@Size(min = 1, max = 5)
-	@Pattern(regexp = "[1-9]*")
+	@NotNull(message="{kundenverwaltung.adresse.hausnr.notNull}")
+	@Size(min = 1, max = 5,message="{kundenverwaltung.adresse.hausnr.length}")
+	@Pattern(regexp = "[1-9][0-9]*",message="{kundenverwaltung.adresse.hausnr.pattern}")
 	private String hausnr;
 	
-	@NotEmpty
-	@Pattern(regexp = "\\d{5}")
+	@NotNull(message="{kundenverwaltung.adresse.plz.notNull}")
+	@Pattern(regexp = "\\d{5}",message="{kundenverwaltung.adresse.plz.pattern}")
 	private String plz;
 	
-	@NotEmpty
-	@Size(min = 2, max = 50)
-	@Pattern(regexp = "[A-ZÄÖÜ][a-zäöüß]+")
+	@NotNull(message="{kundenverwaltung.adresse.ort.notNull}")
+	@Size(min = 2, max = 50,message="{kundenverwaltung.adresse.ort.length}")
+	@Pattern(regexp = "[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+",
+			message="{kundenverwaltung.adresse.ort.pattern}")
 	private String ort;
 	
 	@XmlTransient
