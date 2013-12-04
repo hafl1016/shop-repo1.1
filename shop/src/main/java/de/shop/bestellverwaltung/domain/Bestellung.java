@@ -3,7 +3,6 @@ package de.shop.bestellverwaltung.domain;
 import java.io.Serializable;
 import java.net.URI;
 import java.util.List;
-
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
