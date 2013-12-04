@@ -6,13 +6,16 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 import static javax.ws.rs.core.MediaType.TEXT_XML;
 
+
 //import java.lang.invoke.MethodHandles;
 import java.net.URI;
 import java.util.List;
 
+
 //import javax.annotation.PostConstruct;
 //import javax.annotation.PreDestroy;
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -91,7 +94,7 @@ public class ArtikelResource {
         @POST
         @Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
         @Produces
-        public Response createArtikel(Artikel artikel) {
+        public Response createArtikel(@Valid Artikel artikel) {
                 // TODO Anwendungskern statt Mock, Verwendung von Locale
                 artikel = Mock.createArtikel(artikel);
                 return Response.created(getUriArtikel(artikel, uriInfo)).build();
