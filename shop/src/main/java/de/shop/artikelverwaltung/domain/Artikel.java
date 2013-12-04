@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotEmpty;
+
 
 @Entity
 public class Artikel {
@@ -27,7 +27,8 @@ public class Artikel {
 			message = "{artikelverwaltung.artikel.bezeichnung.pattern}")
 	private String bezeichnung;
 	
-	@NotEmpty(message="{artikelverwaltung.artikel.preis.notempty}")
+	@NotNull(message="{artikelverwaltung.artikel.preis.notnull}")
+	@DecimalMin(value ="0.0",message="{artikelverwaltung.artikel.preis.min}")
 	private BigDecimal preis;
 	
 	public long getId() {
