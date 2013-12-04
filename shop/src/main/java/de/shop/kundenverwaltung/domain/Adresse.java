@@ -24,7 +24,7 @@ public class Adresse implements Serializable {
 	
 	@NotEmpty
 	@Size(min = 1, max = 5)
-	@Pattern(regexp = "[1-9][1-0a-z]+")
+	@Pattern(regexp = "[1-9]*")
 	private String hausnr;
 	
 	@NotEmpty
