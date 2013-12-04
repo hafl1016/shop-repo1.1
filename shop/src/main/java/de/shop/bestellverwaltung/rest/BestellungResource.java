@@ -9,6 +9,7 @@ import java.net.URI;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -91,7 +92,7 @@ public class BestellungResource {
 	@POST
 	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
-	public Response createBestellung(Bestellung best) {
+	public Response createBestellung(@Valid Bestellung best) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
 		best = Mock.createBestellung(best);
 		return Response.created(getUriBestellung(best, uriInfo))
@@ -116,7 +117,7 @@ public class BestellungResource {
 	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
 	@Path("{id:[1-9][0-9]*}/positionen")
-	public Response createPosition(Position pos) {
+	public Response createPosition(@Valid Position pos) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
 		pos = Mock.createPositionen(pos);
 	
