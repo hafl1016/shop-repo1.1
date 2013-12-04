@@ -6,7 +6,8 @@ import javax.persistence.Basic;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.Valid;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -23,14 +24,15 @@ public class Position implements Serializable{
 		@Basic(optional = false)
         private long id;
 		
-        private int bestellid;
+        private Integer bestellid;
         
         @XmlTransient
         @Valid
         private Artikel artikel;
         
-        @Pattern (regexp = "[1-9]?", message = "{bestellverwaltung.position.anzahl.pattern}")
-        private int anzahl;
+        @NotNull(message = "{bestellverwaltung.position.anzahl.notNull}")
+        @Min(value=1, message = "{bestellverwaltung.position.anzahl.min}")
+        private Integer anzahl;
         
         public long getId() {
                 return id;
@@ -44,7 +46,7 @@ public class Position implements Serializable{
                 return bestellid;
         }
         
-        public void setBestellid(int bestellid) {
+        public void setBestellid(Integer bestellid) {
                 this.bestellid = bestellid;
         }
         
@@ -60,7 +62,7 @@ public class Position implements Serializable{
                 return anzahl;
         }
         
-        public void setAnzahl(int anzahl) {
+        public void setAnzahl(Integer anzahl) {
                 this.anzahl = anzahl;
         }
         
