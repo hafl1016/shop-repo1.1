@@ -148,7 +148,7 @@ public class BestellungResource {
 	@Path("{id:[1-9][0-9]*}/positionen")
 	public void updatePosition(Position pos) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
-		pos= Mock.updatePositionen(pos);
+		pos= bs.updatePosition(pos);
 	
 		
 	}

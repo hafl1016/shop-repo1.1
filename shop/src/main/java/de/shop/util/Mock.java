@@ -225,7 +225,7 @@ public final class Mock {
 	    return pos;
 	}
 
-	public static Position updatePositionen(@Valid Position pos) {
+	public static Position updatePosition(@Valid Position pos) {
 		System.out.println("Aktualisierte Postition: " + pos);
 		return pos;
 	}

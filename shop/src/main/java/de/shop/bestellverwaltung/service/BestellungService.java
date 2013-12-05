@@ -46,6 +46,11 @@ public class BestellungService {
 			return erg;
 			
 		}
+
+		public Position updatePosition(Position pos) {
+		pos=Mock.updatePosition(pos);
+			return pos;
+		}
 		
 }
 		
