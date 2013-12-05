@@ -8,6 +8,7 @@ import static javax.ws.rs.core.MediaType.TEXT_XML;
 import java.net.URI;
 import java.util.List;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -34,6 +35,7 @@ import de.shop.util.rest.NotFoundException;
 @Path("/bestellungen")
 @Produces({ APPLICATION_JSON, APPLICATION_XML + ";qs=0.75", TEXT_XML + ";qs=0.5" })
 @Consumes
+@RequestScoped
 public class BestellungResource {
 	
 	
