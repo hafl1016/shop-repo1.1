@@ -1,6 +1,7 @@
 package de.shop.bestellverwaltung.domain;
 
 import java.io.Serializable;
+import java.net.URI;
 
 import javax.persistence.Basic;
 import javax.persistence.GeneratedValue;
@@ -34,7 +35,17 @@ public class Position implements Serializable{
         @Min(value=1, message = "{bestellverwaltung.position.anzahl.min}")
         private Integer anzahl;
         
-        public long getId() {
+        private URI ArtikelUri;
+        
+        public URI getArtikelUri() {
+			return ArtikelUri;
+		}
+
+		public void setArtikelUri(URI artikelUri) {
+			ArtikelUri = artikelUri;
+		}
+
+		public long getId() {
                 return id;
         }
         

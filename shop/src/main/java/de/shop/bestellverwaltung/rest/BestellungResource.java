@@ -75,6 +75,7 @@ public class BestellungResource {
 	
 	public void setStructuralLinks(Bestellung bestellung, UriInfo uriInfo) {
 		// URI fuer Kunde setzen
+		//TODO URI Kunde abschauen für URIArtikel
 		final AbstractKunde kunde = bestellung.getKunde();
 		if (kunde != null) {
 			final URI kundeUri = kundeResource.getUriKunde(bestellung.getKunde(), uriInfo);
