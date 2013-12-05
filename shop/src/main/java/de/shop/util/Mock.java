@@ -2,6 +2,7 @@ package de.shop.util;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,7 +25,7 @@ public final class Mock {
 	private static final int MAX_KUNDEN = 8;
 	private static final int MAX_BESTELLUNGEN = 4;
 	private static final int MAX_ARTIKEL = 10;
-	private static final long MAX_POSITIONEN = 10;
+	private static final long MAX_POSITIONEN = 2;
 
 
 	public static AbstractKunde findKundeById(Long id) {
@@ -170,10 +171,10 @@ public final class Mock {
     }
     
     public static Bestellung createBestellung(@Valid Bestellung best) {
-		final String bestdat = best.getBestelldatum();
+		final GregorianCalendar bestdat = best.getBestelldatum();
 		best.setBestelldatum(bestdat);
 		//TODO evt. Verbindung zu Posten herstellen (bzgl. POST)
-        final long nummer = best.getBestelldatum().length();
+        final long nummer = best.getBestelldatum().getFirstDayOfWeek();
         best.setId(nummer);   
         System.out.println("Neue Bestellung: " + best);
         return best;

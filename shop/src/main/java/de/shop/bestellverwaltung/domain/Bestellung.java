@@ -2,7 +2,9 @@ package de.shop.bestellverwaltung.domain;
 
 import java.io.Serializable;
 import java.net.URI;
+import java.util.GregorianCalendar;
 import java.util.List;
+
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,7 +37,7 @@ public class Bestellung implements Serializable {
 	private boolean ausgeliefert;
 	
 	@NotNull(message = "{bestellverwaltung.bestellung.bestelldatum.notNull}")
-	private String bestelldatum;
+	private GregorianCalendar bestelldatum;
 	
 	@NotEmpty(message = "{bestellverwaltung.bestellung.positionen.notEmpty}")
 	@Valid
@@ -55,11 +57,11 @@ public class Bestellung implements Serializable {
 		this.id = id;
 	}
 	
-	public String getBestelldatum() {
+	public GregorianCalendar getBestelldatum() {
 		return bestelldatum;
 	}
 	
-	public void setBestelldatum(String bestelldatum) {
+	public void setBestelldatum(GregorianCalendar bestelldatum) {
 		this.bestelldatum = bestelldatum;
 	}
 	
