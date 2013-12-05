@@ -3,12 +3,12 @@ package de.shop.bestellverwaltung.service;
 import java.util.List;
 import java.util.Locale;
 
+import javax.enterprise.context.Dependent;
+
 import de.shop.bestellverwaltung.domain.Bestellung;
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 
-/**
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
+@Dependent
 public interface BestellungService {
 	Bestellung findBestellungById(Long id);
 	List<Bestellung> findBestellungenByKunde(AbstractKunde kunde);
