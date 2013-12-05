@@ -27,6 +27,7 @@ import javax.ws.rs.core.UriInfo;
 
 import de.shop.bestellverwaltung.domain.Bestellung;
 import de.shop.bestellverwaltung.domain.Position;
+import de.shop.bestellverwaltung.service.BestellungService;
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.kundenverwaltung.rest.KundeResource;
 import de.shop.util.Mock;
@@ -44,16 +45,20 @@ public class BestellungResource {
 	private UriInfo uriInfo;
 	
 	@Inject
-	private UriHelper uriHelper;
+	private BestellungService bs;
 	
 	@Inject
 	private KundeResource kundeResource;
+	
+	@Inject
+	private UriHelper uriHelper;
+	
 	
 	@GET
 	@Path("{id:[1-9][0-9]*}")
 	public Response findBestellungById(@PathParam("id") Long id) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
-		final Bestellung bestellung = Mock.findBestellungById(id);
+		final Bestellung bestellung = bs.findBestellungById(id);
 		if (bestellung == null) {
 			throw new NotFoundException("Keine Bestellung mit der ID " + id + " gefunden.");
 		}
@@ -99,7 +104,7 @@ public class BestellungResource {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
 		
 		
-		best = Mock.createBestellung(best);
+		best = bs.createBestellung(best);
 		GregorianCalendar date= new GregorianCalendar();
 		Long dong = date.getTimeInMillis();
 		date.setTimeInMillis(dong);
@@ -113,7 +118,7 @@ public class BestellungResource {
 	@Path("{id:[1-9][0-9]*}/positionen")
 	public Response findPositionenByBestellId(@PathParam("id") int id) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
-		final List<Position> poslist = Mock.findAllPositionen(id);
+		final List<Position> poslist = bs.findallPositionen(id);
 		if (poslist == null) {
 			throw new NotFoundException("Keine Positionen mit der BestellID " + id + " gefunden.");
 		}
@@ -123,13 +128,14 @@ public class BestellungResource {
 	}
 	
 	
+	
 	@POST
 	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
 	@Path("{id:[1-9][0-9]*}/positionen")
 	public Response createPosition(@Valid Position pos) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
-		pos = Mock.createPositionen(pos);
+		pos = bs.createPosition(pos);
 	
 		return Response.created(getUriBestellung(pos, uriInfo))
 			           .build();
@@ -146,3 +152,4 @@ public class BestellungResource {
 		
 	}
 }
+	
