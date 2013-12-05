@@ -116,7 +116,7 @@ public final class Mock {
 	
 	public static List<Position> findAllPositionen(int id) {
           
-		  final int anzahl = 10;
+		  final int anzahl = 1;
           final List<Position> positionList = new ArrayList<>(anzahl);
           for (int i = 1; i <= anzahl; i++) {
                   final Position position = findPositionById(i, id);
