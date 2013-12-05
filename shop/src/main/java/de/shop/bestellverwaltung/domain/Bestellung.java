@@ -36,7 +36,7 @@ public class Bestellung implements Serializable {
 	@AssertFalse(message = "{bestellverwaltung.bestellung.istAusgeliefert.assertFalse}")
 	private boolean ausgeliefert;
 	
-	@NotNull(message = "{bestellverwaltung.bestellung.bestelldatum.notNull}")
+	
 	private GregorianCalendar bestelldatum;
 	
 	@NotEmpty(message = "{bestellverwaltung.bestellung.positionen.notEmpty}")

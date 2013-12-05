@@ -171,10 +171,10 @@ public final class Mock {
     }
     
     public static Bestellung createBestellung(@Valid Bestellung best) {
-		final GregorianCalendar bestdat = best.getBestelldatum();
-		best.setBestelldatum(bestdat);
+		/*final GregorianCalendar bestdat = best.getBestelldatum();
+		best.setBestelldatum(bestdat);*/
 		//TODO evt. Verbindung zu Posten herstellen (bzgl. POST)
-        final long nummer = best.getBestelldatum().getFirstDayOfWeek();
+        final long nummer =11;
         best.setId(nummer);   
         System.out.println("Neue Bestellung: " + best);
         return best;

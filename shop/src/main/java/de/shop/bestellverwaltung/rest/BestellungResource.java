@@ -6,6 +6,10 @@ import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 import static javax.ws.rs.core.MediaType.TEXT_XML;
 
 import java.net.URI;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -96,7 +100,14 @@ public class BestellungResource {
 	@Produces
 	public Response createBestellung(@Valid Bestellung best) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
+		
+		
 		best = Mock.createBestellung(best);
+		GregorianCalendar date= new GregorianCalendar();
+		Long dong = date.getTimeInMillis();
+		date.setTimeInMillis(dong);
+				
+		best.setBestelldatum(date);
 		return Response.created(getUriBestellung(best, uriInfo))
 			           .build();
 	}
