@@ -30,6 +30,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import de.shop.artikelverwaltung.domain.*;
+import de.shop.artikelverwaltung.service.ArtikelService;
 //import org.jboss.logging.Logger;
 //import de.shop.kundenverwaltung.domain.AbstractKunde;
 //import de.shop.artikelverwaltung.service.ArtikelService;
@@ -51,8 +52,8 @@ public class ArtikelResource {
         // .lookup().lookupClass());
         // private static final String NOT_FOUND_ID = "artikel.notFound.id";
 
-        // @Inject
-        // private ArtikelService as;
+        @Inject
+        private ArtikelService as;
 
         @Inject
         private UriHelper uriHelper;
@@ -70,7 +71,7 @@ public class ArtikelResource {
         @GET
         public Response findAllArtikel() {
                 // TODO Anwendungskern statt Mock, Verwendung von Locale
-                final List<Artikel> artikelList = Mock.findAllArtikel();
+                final List<Artikel> artikelList = as.findAllArtikel();
                 if (artikelList.isEmpty())
                         throw new NotFoundException("Es wurden keine Artikel gefunden.");
                 return Response.ok(
@@ -81,7 +82,7 @@ public class ArtikelResource {
         @GET
         @Path("{id:[1-9][0-9]*}")
         public Response findArtikelById(@PathParam("id") int id) {
-                final Artikel artikel = Mock.findArtikelById(id);
+                final Artikel artikel = as.findArtikelById(id);
                 if (artikel == null) {
                         throw new NotFoundException("Kein Artikel mit der Artikelnummer "
                                         + id + " gefunden.");
@@ -96,7 +97,7 @@ public class ArtikelResource {
         @Produces
         public Response createArtikel(@Valid Artikel artikel) {
                 // TODO Anwendungskern statt Mock, Verwendung von Locale
-                artikel = Mock.createArtikel(artikel);
+                artikel = as.createArtikel(artikel);
                 return Response.created(getUriArtikel(artikel, uriInfo)).build();
         }
     	
@@ -118,7 +119,7 @@ public class ArtikelResource {
         @Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
         @Produces
         public void updateArtikel(Artikel artikel) {
-                Mock.updateArtikel(artikel);
+                as.updateArtikel(artikel);
         }
 
 }
