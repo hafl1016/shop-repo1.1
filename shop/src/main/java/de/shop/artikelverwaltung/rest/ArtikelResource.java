@@ -46,10 +46,8 @@ import de.shop.util.Mock;
 public class ArtikelResource {
         @Context
         private UriInfo uriInfo;
-       
-
-        // private static final Logger LOGGER = Logger.getLogger(MethodHandles
-        // .lookup().lookupClass());
+      
+        
         // private static final String NOT_FOUND_ID = "artikel.notFound.id";
 
         @Inject

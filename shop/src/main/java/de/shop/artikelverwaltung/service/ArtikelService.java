@@ -20,7 +20,9 @@ public class ArtikelService implements Serializable {
 
 	@NotNull(message = "{artikel.notFound.id}")
 	public Artikel findArtikelById(int id) {
-		// TODO id pruefen
+		// TODO id pruefen		
+		if(id >10)
+			return null;
 		// TODO Datenbanzugriffsschicht statt Mock
 		return Mock.findArtikelById(id);
 	}

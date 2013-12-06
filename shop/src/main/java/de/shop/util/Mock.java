@@ -186,9 +186,10 @@ public final class Mock {
 	}
 	
 	public static Artikel findArtikelById(int id) {
-        if (id > MAX_ARTIKEL) {
+       
+		/*if (id > MAX_ARTIKEL) {
                 return null;
-        }
+        }*/
 
         final Artikel artikel = new Artikel();
         
