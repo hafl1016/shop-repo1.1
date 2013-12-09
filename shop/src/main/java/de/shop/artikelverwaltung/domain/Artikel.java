@@ -21,14 +21,14 @@ public class Artikel {
 	@Basic(optional = false)
 	private Long id;
 	
-	@NotNull(message="{artikelverwaltung.artikel.bezeichnung.notnull}")
-	@Size(min = 2, max = 50, message="{artikelverwaltung.artikel.bezeichnung.length}")
+	@NotNull(message = "{artikelverwaltung.artikel.bezeichnung.notnull}")
+	@Size(min = 2, max = 50, message = "{artikelverwaltung.artikel.bezeichnung.length}")
 	@Pattern(regexp = "[A-Z\u00C4\u00D6\u00DC][-A-Za-z0-9\u00E4\u00F6\u00FC\u00DF\u0020]+", 
 			message = "{artikelverwaltung.artikel.bezeichnung.pattern}")
 	private String bezeichnung;
 	
-	@NotNull(message="{artikelverwaltung.artikel.preis.notnull}")
-	@DecimalMin(value ="0.0",message="{artikelverwaltung.artikel.preis.min}")
+	@NotNull(message = "{artikelverwaltung.artikel.preis.notnull}")
+	@DecimalMin(value = "0.0", message = "{artikelverwaltung.artikel.preis.min}")
 	private BigDecimal preis;
 	
 	public long getId() {

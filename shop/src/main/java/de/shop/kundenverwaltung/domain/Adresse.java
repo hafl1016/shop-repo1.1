@@ -17,28 +17,28 @@ public class Adresse implements Serializable {
 	
 	@Id
 	@GeneratedValue
-	@Basic(optional=false)
+	@Basic(optional = false)
 	private Long id;
 	
-	@NotNull(message="{kundenverwaltung.adresse.strasse.notNull}")
-	@Size(min = 2, max = 50,message="{kundenverwaltung.adresse.strasse.length}")
+	@NotNull(message = "{kundenverwaltung.adresse.strasse.notNull}")
+	@Size(min = 2, max = 50, message = "{kundenverwaltung.adresse.strasse.length}")
 	@Pattern(regexp = "[A-Z\u00C4\u00D6\u00DC][-a-zA-Z\u00E4\u00F6\u00FC\u00DF\u0020]+",
-			message="{kundenverwaltung.adresse.strasse.patternnot}")
+			message = "{kundenverwaltung.adresse.strasse.patternnot}")
 	private String strasse;
 	
-	@NotNull(message="{kundenverwaltung.adresse.hausnr.notNull}")
-	@Size(min = 1, max = 5,message="{kundenverwaltung.adresse.hausnr.length}")
-	@Pattern(regexp = "[1-9][0-9]*[a-z]*",message="{kundenverwaltung.adresse.hausnr.pattern}")
+	@NotNull(message = "{kundenverwaltung.adresse.hausnr.notNull}")
+	@Size(min = 1, max = 5, message = "{kundenverwaltung.adresse.hausnr.length}")
+	@Pattern(regexp = "[1-9][0-9]*[a-z]*", message = "{kundenverwaltung.adresse.hausnr.pattern}")
 	private String hausnr;
 	
-	@NotNull(message="{kundenverwaltung.adresse.plz.notNull}")
-	@Pattern(regexp = "\\d{5}",message="{kundenverwaltung.adresse.plz.pattern}")
+	@NotNull(message = "{kundenverwaltung.adresse.plz.notNull}")
+	@Pattern(regexp = "\\d{5}", message = "{kundenverwaltung.adresse.plz.pattern}")
 	private String plz;
 	
-	@NotNull(message="{kundenverwaltung.adresse.ort.notNull}")
-	@Size(min = 2, max = 50,message="{kundenverwaltung.adresse.ort.length}")
+	@NotNull(message = "{kundenverwaltung.adresse.ort.notNull}")
+	@Size(min = 2, max = 50, message = "{kundenverwaltung.adresse.ort.length}")
 	@Pattern(regexp = "[A-Z\u00C4\u00D6\u00DC][-a-zA-Z\u00E4\u00F6\u00FC\u00DF\u0020]+",
-			message="{kundenverwaltung.adresse.ort.pattern}")
+			message = "{kundenverwaltung.adresse.ort.pattern}")
 	private String ort;
 	
 	@XmlTransient

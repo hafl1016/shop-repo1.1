@@ -105,7 +105,7 @@ public class BestellungResource {
 		
 		
 		best = bs.createBestellung(best);
-		GregorianCalendar date= new GregorianCalendar();
+		GregorianCalendar date = new GregorianCalendar();
 		Long dong = date.getTimeInMillis();
 		date.setTimeInMillis(dong);
 				
@@ -147,7 +147,7 @@ public class BestellungResource {
 	@Path("{id:[1-9][0-9]*}/positionen")
 	public void updatePosition(Position pos) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
-		pos= bs.updatePosition(pos);
+		pos = bs.updatePosition(pos);
 	
 		
 	}

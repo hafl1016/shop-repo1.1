@@ -17,11 +17,13 @@ import de.shop.util.Mock;
 @Log
 public class ArtikelService implements Serializable {
 	private static final long serialVersionUID = -5105686816948437276L;
+	
+	private static final int MAX_ID = 10;
 
 	@NotNull(message = "{artikel.notFound.id}")
 	public Artikel findArtikelById(int id) {
 		// TODO id pruefen		
-		if(id >10)
+		if (id > MAX_ID)
 			return null;
 		// TODO Datenbanzugriffsschicht statt Mock
 		return Mock.findArtikelById(id);

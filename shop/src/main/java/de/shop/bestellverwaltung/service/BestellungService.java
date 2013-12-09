@@ -35,20 +35,20 @@ public class BestellungService {
 			
 			return bestellung;
 		}
+		
 		public Position createPosition(Position pos) {
 			//TODO Datenbankzugriffsschicht statt mock
-			pos=Mock.createPositionen(pos);
+			pos = Mock.createPositionen(pos);
 			return pos;
 		}
-		public List<Position> findallPositionen(int id)
-		{
+		public List<Position> findallPositionen(int id) {
 			List<Position> erg = Mock.findAllPositionen(id);
 			return erg;
 			
 		}
 
 		public Position updatePosition(Position pos) {
-		pos=Mock.updatePosition(pos);
+			pos = Mock.updatePosition(pos);
 			return pos;
 		}
 		

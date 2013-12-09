@@ -16,7 +16,7 @@ import de.shop.artikelverwaltung.domain.*;
 
 
 @XmlRootElement
-public class Position implements Serializable{
+public class Position implements Serializable {
 
 		private static final long serialVersionUID = 2640612708567145520L;
 
@@ -32,7 +32,7 @@ public class Position implements Serializable{
         private Artikel artikel;
         
         @NotNull(message = "{bestellverwaltung.position.anzahl.notNull}")
-        @Min(value=1, message = "{bestellverwaltung.position.anzahl.min}")
+        @Min(value = 1, message = "{bestellverwaltung.position.anzahl.min}")
         private Integer anzahl;
         
         private URI ArtikelUri;

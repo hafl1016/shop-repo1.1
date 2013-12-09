@@ -171,7 +171,7 @@ public final class Mock {
 		/*final GregorianCalendar bestdat = best.getBestelldatum();
 		best.setBestelldatum(bestdat);*/
 		//TODO evt. Verbindung zu Posten herstellen (bzgl. POST)
-        final long nummer =11;
+        final long nummer = 11;
         best.setId(nummer);   
         System.out.println("Neue Bestellung: " + best);
         return best;
