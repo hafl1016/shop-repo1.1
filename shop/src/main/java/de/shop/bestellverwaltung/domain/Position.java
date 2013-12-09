@@ -27,7 +27,7 @@ public class Position implements Serializable {
 		
         private Integer bestellid;
         
-        @XmlTransient
+        
         @Valid
         private Artikel artikel;
         
