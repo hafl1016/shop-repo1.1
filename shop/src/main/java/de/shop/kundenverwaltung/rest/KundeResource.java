@@ -175,14 +175,14 @@ public class KundeResource {
 	public Response findBestellungenByKundeId(@PathParam("id") Long kundeId) {
 		final AbstractKunde kunde = ks.findKundeById(kundeId);
 		if (kunde == null) {
-			throw new NotFoundException("Kein Kunde mit "+kundeId+"Kundennummer gefunden");
+			throw new NotFoundException("Kein Kunde mit " + kundeId + "Kundennummer gefunden");
 		}
 		final List<Bestellung> bestellungen = bs.findBestellungenByKunde(kunde);
 		 
 		/*if (bestellungen.isEmpty()) {
 			throw new NotFoundException("Zur ID " + kundeId + " wurden keine Bestellungen gefunden");
 		}*/
-		if(bestellungen!=null) {
+		if (bestellungen != null) {
 		 //URIs innerhalb der gefundenen Bestellungen anpassen
 		for (Bestellung bestellung : bestellungen) {
 			bestellungResource.setStructuralLinks(bestellung, uriInfo);

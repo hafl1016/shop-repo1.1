@@ -42,7 +42,7 @@ public class BestellungService {
 			return pos;
 		}
 		public List<Position> findallPositionen(int id) {
-			List<Position> erg = Mock.findAllPositionen(id);
+			final List<Position> erg = Mock.findAllPositionen(id);
 			return erg;
 			
 		}
