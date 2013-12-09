@@ -13,9 +13,7 @@ import javax.ws.rs.ext.Provider;
 
 import org.jboss.logging.Logger;
 
-/**
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
+
 @Provider
 public class JaxRsLogFilter implements ContainerRequestFilter, ContainerResponseFilter {
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());

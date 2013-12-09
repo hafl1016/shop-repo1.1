@@ -10,9 +10,7 @@ import de.shop.artikelverwaltung.domain.Artikel;
 import de.shop.util.interceptor.Log;
 import de.shop.util.Mock;
 
-/**
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
+
 @Dependent
 @Log
 public class ArtikelService implements Serializable {
