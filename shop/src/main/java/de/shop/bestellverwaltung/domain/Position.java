@@ -1,8 +1,6 @@
 package de.shop.bestellverwaltung.domain;
 
 import java.io.Serializable;
-import java.net.URI;
-
 import javax.persistence.Basic;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

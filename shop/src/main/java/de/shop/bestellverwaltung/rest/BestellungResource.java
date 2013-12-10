@@ -119,9 +119,10 @@ public class BestellungResource {
 	public Response findPositionenByBestellId(@PathParam("id") int id) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
 		final List<Position> poslist = bs.findallPositionen(id);
-		if (poslist == null) {
+		//TODO unnötig?
+		/*if (poslist == null) {
 			throw new NotFoundException("Keine Positionen mit der BestellID " + id + " gefunden.");
-		}
+		}*/
               
         return Response.ok(new GenericEntity<List<? extends Position>>(poslist) { })
         		.build();

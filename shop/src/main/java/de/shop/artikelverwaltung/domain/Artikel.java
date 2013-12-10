@@ -1,5 +1,6 @@
 package de.shop.artikelverwaltung.domain;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Basic;
@@ -14,7 +15,9 @@ import javax.validation.constraints.Size;
 
 
 @Entity
-public class Artikel {
+public class Artikel implements Serializable {
+
+	private static final long serialVersionUID = -3667223597842607513L;
 
 	@Id
 	@GeneratedValue
