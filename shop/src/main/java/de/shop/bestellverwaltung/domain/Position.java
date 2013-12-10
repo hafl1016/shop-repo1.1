@@ -32,15 +32,6 @@ public class Position implements Serializable {
         @NotNull(message = "{bestellverwaltung.position.anzahl.notNull}")
         @Min(value = 1, message = "{bestellverwaltung.position.anzahl.min}")
         private Integer anzahl;
-        
-        
-        public URI getArtikelUri() {
-			return artikeluri;
-		}
-
-		public void setArtikelUri(URI artikelUri) {
-			artikeluri = artikelUri;
-		}
 
 		public long getId() {
                 return id;
