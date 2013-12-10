@@ -23,6 +23,7 @@ public final class Mock {
 	private static final int MAX_BESTELLUNGEN = 4;
 	private static final int MAX_ARTIKEL = 10;
 	private static final long MAX_POSITIONEN = 2;
+	private static final int DREI = 3;
 
 
 	public static AbstractKunde findKundeById(Long id) {
@@ -130,7 +131,7 @@ public final class Mock {
 
           final Position position = new Position();
           position.setId(id);
-          position.setAnzahl(id + 3);
+          position.setAnzahl(id + DREI);
           position.setArtikel(findArtikelById(id));
           position.setBestellid(bid);
 
