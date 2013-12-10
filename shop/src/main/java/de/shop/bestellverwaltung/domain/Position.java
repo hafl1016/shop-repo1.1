@@ -33,7 +33,6 @@ public class Position implements Serializable {
         @Min(value = 1, message = "{bestellverwaltung.position.anzahl.min}")
         private Integer anzahl;
         
-        private URI artikeluri;
         
         public URI getArtikelUri() {
 			return artikeluri;
