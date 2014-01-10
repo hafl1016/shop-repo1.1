@@ -28,7 +28,7 @@ import de.shop.util.interceptor.Log;
 @Log
 public class ArtikelService implements Serializable {
 	private static final long serialVersionUID = 3076865030092242363L;
-	
+
 	@Inject
 	private transient EntityManager em;
 	
@@ -137,5 +137,13 @@ public class ArtikelService implements Serializable {
 		
 		em.persist(artikel);
 		return artikel;		
+	}
+	
+	public Artikel updateArtikel(Artikel artikel) {
+		if(artikel == null) 
+			return null;
+		
+		em.merge(artikel);
+		return artikel;
 	}
 }

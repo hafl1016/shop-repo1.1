@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -74,6 +75,19 @@ public class ArtikelResource {
 		
 		return Response.created(getUriArtikel(artikel,uriInfo))
 					   .build();
+	}
+	
+	@PUT
+	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
+	@Produces
+	public void updateArtikel(@Valid Artikel artikel) {
+		final Artikel origArtikel = as.findArtikelById(artikel.getId());
+		LOGGER.tracef("Artikel vorher: %s", origArtikel);
+		
+		origArtikel.setValues(artikel);
+		LOGGER.tracef("Artikel nachher: %s", origArtikel);
+		
+		as.updateArtikel(origArtikel);
 	}
 	
 	private Link[] getTransitionalLinks(Artikel artikel, UriInfo uriInfo) {
