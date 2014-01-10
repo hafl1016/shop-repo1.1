@@ -1,22 +1,27 @@
 package de.shop.kundenverwaltung.domain;
 
-import java.io.Serializable;
+import static de.shop.util.Constants.KEINE_ID;
+import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.CascadeType.REMOVE;
+import static javax.persistence.TemporalType.DATE;
+
+import java.lang.invoke.MethodHandles;
+import java.math.BigDecimal;
 import java.net.URI;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.persistence.Column;
 import javax.persistence.Index;
 import javax.persistence.Inheritance;
 import javax.persistence.JoinColumn;
@@ -33,23 +38,53 @@ import javax.persistence.PostPersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
+import javax.validation.Valid;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import javax.validation.groups.Default;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.codehaus.jackson.annotate.JsonSubTypes;
 import org.codehaus.jackson.annotate.JsonSubTypes.Type;
 import org.codehaus.jackson.annotate.JsonTypeInfo;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.ScriptAssert;
+import org.jboss.logging.Logger;
 
 import de.shop.bestellverwaltung.domain.Bestellung;
+import de.shop.util.persistence.AbstractAuditable;
 
-@Entity
+
+/**
+ * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
+ */
+@ScriptAssert(lang = "javascript",
+              script = "_this.password != null && !_this.password.equals(\"\")"
+                       + " && _this.password.equals(_this.passwordWdh)",
+              message = "{kunde.password.notEqual}",
+              groups = { Default.class, PasswordGroup.class })
 @XmlRootElement
-@XmlSeeAlso({ Firmenkunde.class, Privatkunde.class })
+@XmlSeeAlso({ Privatkunde.class, Firmenkunde.class })
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
 	@Type(value = Privatkunde.class, name = AbstractKunde.PRIVATKUNDE),
-	@Type(value = Firmenkunde.class, name = AbstractKunde.FIRMENKUNDE) })
+	@Type(value = Firmenkunde.class, name = AbstractKunde.FIRMENKUNDE)
+})
+// Alternativen bei @Inheritance
+//   strategy=SINGLE_TABLE (=default), TABLE_PER_CLASS, JOINED
+// Alternativen bei @DiscriminatorColumn
+//   discriminatorType=STRING (=default), CHAR, INTEGER
+@Entity
+//Zu email wird unten ein UNIQUE Index definiert
 @Table(name = "kunde", indexes = @Index(columnList = "nachname"))
-
+@Inheritance
+@DiscriminatorColumn(name = "art", length = 1)
 @NamedQueries({
 	@NamedQuery(name  = AbstractKunde.FIND_KUNDEN,
                 query = "SELECT k"
@@ -95,22 +130,25 @@ import de.shop.bestellverwaltung.domain.Bestellung;
 	@NamedEntityGraph(name = AbstractKunde.GRAPH_WARTUNGSVERTRAEGE,
 					  attributeNodes = @NamedAttributeNode("wartungsvertraege"))
 })
-
-public abstract class AbstractKunde implements Serializable {
-	private static final long serialVersionUID = 7401524595142572933L;
+public abstract class AbstractKunde extends AbstractAuditable {
+	private static final long serialVersionUID = 5685115602958386843L;
+	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	
+	//Pattern mit UTF-8 (statt Latin-1 bzw. ISO-8859-1) Schreibweise fuer Umlaute:
+	private static final String NAME_PATTERN = "[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+";
+	private static final String PREFIX_ADEL = "(o'|von|von der|von und zu|van)?";
+	
+	public static final String NACHNAME_PATTERN = PREFIX_ADEL + NAME_PATTERN + "(-" + NAME_PATTERN + ")?";
+	private static final int NACHNAME_LENGTH_MIN = 2;
+	private static final int NACHNAME_LENGTH_MAX = 32;
+	private static final int VORNAME_LENGTH_MAX = 32;
+	private static final int EMAIL_LENGTH_MAX = 128;
+	private static final String RABATT_MAX = "0.5";
+	private static final int PASSWORD_LENGTH_MAX = 256;
 	
 	public static final String PRIVATKUNDE = "P";
 	public static final String FIRMENKUNDE = "F";
 	
-	//Pattern mit UTF-8 (statt Latin-1 bzw. ISO-8859-1) Schreibweise fuer Umlaute:
-	private static final String NAME_PATTERN = "[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+";
-	private static final String NACHNAME_PREFIX = "(o'|von|von der|von und zu|van)?";
-	
-	public static final String NACHNAME_PATTERN = NACHNAME_PREFIX + NAME_PATTERN + "(-" + NAME_PATTERN + ")?";
-	private static final int NACHNAME_LENGTH_MIN = 2;
-	private static final int NACHNAME_LENGTH_MAX = 32;
-	private static final int EMAIL_LENGTH_MAX = 128;
 	private static final String PREFIX = "AbstractKunde.";
 	public static final String FIND_KUNDEN = PREFIX + "findKunden";
 	public static final String FIND_KUNDEN_ORDER_BY_ID = PREFIX + "findKundenOrderById";
@@ -133,169 +171,312 @@ public abstract class AbstractKunde implements Serializable {
 	public static final String GRAPH_BESTELLUNGEN = PREFIX + "bestellungen";
 	public static final String GRAPH_WARTUNGSVERTRAEGE = PREFIX + "wartungsvertraege";
 
-
 	@Id
 	@GeneratedValue
 	@Basic(optional = false)
-	private Long id;
-	
-	@NotNull(message = "{kundenverwaltung.kunde.nachname.notNull}")
-	@Size(min = NACHNAME_LENGTH_MIN, max = NACHNAME_LENGTH_MAX,
-	      message = "{kundenverwaltung.kunde.nachname.length }")
-	@Pattern(regexp = NACHNAME_PATTERN, message = "{kundenverwaltung.kunde.nachname.pattern}")
+	private Long id = KEINE_ID;
+
+	@NotNull(message = "{kunde.nachname.notNull}")
+	@Size(min = NACHNAME_LENGTH_MIN, max = NACHNAME_LENGTH_MAX, message = "{kunde.nachname.length}")
+	@Pattern(regexp = NACHNAME_PATTERN, message = "{kunde.nachname.pattern}")
 	private String nachname;
-	
-	//TODO validation
+
+	@Size(max = VORNAME_LENGTH_MAX, message = "{kunde.vorname.length}")
 	private String vorname;
 	
-	@Email(message = "{kundenverwaltung.kunde.email.pattern}")
-	@NotNull(message = "{kundenverwaltung.kunde.email.notNull }")
+	@Temporal(DATE)
+	@Past(message = "{kunde.seit.past}")
+	private Date seit;
+
+	@DecimalMax(value = RABATT_MAX, message = "{kunde.rabatt.max}")
+	@Digits(integer = 1, fraction = 4, message = "{kunde.rabatt.digits}")
+	private BigDecimal rabatt = BigDecimal.ZERO;
+	
+	@Digits(integer = 10, fraction = 2, message = "{kunde.umsatz.digits}")
+	private BigDecimal umsatz = BigDecimal.ZERO;
+	
+	@Email(message = "{kunde.email.pattern}")
+	@NotNull(message = "{kunde.email.notNull}")
 	@Size(max = EMAIL_LENGTH_MAX, message = "{kunde.email.length}")
 	@Column(unique = true)
 	private String email;
 	
-	@Valid
-	@NotNull(message = "{kundenverwaltung.kunde.adresse.notNull}")
-	@OneToOne(mappedBy = "kunde")
-	private Adresse adresse;
+	@Basic(optional = false)
+	private boolean newsletter = false;
 	
+	@Size(max = PASSWORD_LENGTH_MAX, message = "{kunde.password.length}")
+	private String password;
+	
+	@Transient
+	private String passwordWdh;
+	
+//	@AssertTrue(groups = PasswordGroup.class, message = "{kunde.password.notEqual}")
+//	public boolean isPasswordEqual() {
+//		if (password == null) {
+//			return passwordWdh == null;
+//		}
+//		return password.equals(passwordWdh);
+//	}
+	
+	@OneToOne(cascade = { PERSIST, REMOVE }, mappedBy = "kunde")
+	@Valid
+	@NotNull(message = "{kunde.adresse.notNull}")
+	private Adresse adresse;
+
+	// Default: fetch=LAZY
+	@OneToMany
+	@JoinColumn(name = "kunde_fk", nullable = false)
+	@OrderColumn(name = "idx", nullable = false)
 	@XmlTransient
 	private List<Bestellung> bestellungen;
 	
+	@Transient
 	private URI bestellungenUri;
 
+	@OneToMany
+	@JoinColumn(name = "kunde_fk", nullable = false)
+	@OrderColumn(name = "idx", nullable = false)
+	@XmlTransient
+	private List<Wartungsvertrag> wartungsvertraege;
+
+	@PostPersist
+	protected void postPersist() {
+		LOGGER.debugf("Neuer Kunde mit ID=%d", id);
+	}
+	
+	@PostLoad
+	protected void postLoad() {
+		passwordWdh = password;
+	}
+	
+	public void setValues(AbstractKunde k) {
+		nachname = k.nachname;
+		vorname = k.vorname;
+		umsatz = k.umsatz;
+		rabatt = k.rabatt;
+		seit = k.seit;
+		email = k.email;
+		password = k.password;
+		passwordWdh = k.password;
+	}
+	
 	public Long getId() {
 		return id;
 	}
-	
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
+	public String getNachname() {
+		return nachname;
+	}
+	public void setNachname(String nachname) {
+		this.nachname = nachname;
+	}
+
 	public String getVorname() {
 		return vorname;
 	}
-	
 	public void setVorname(String vorname) {
 		this.vorname = vorname;
 	}
 	
-	public String getNachname() {
-		return nachname;
+	public Date getSeit() {
+		return seit == null ? null : (Date) seit.clone();
+	}
+	public void setSeit(Date seit) {
+		this.seit = seit == null ? null : (Date) seit.clone();
+	}
+
+	// Parameter, z.B. DateFormat.MEDIUM, Locale.GERMANY
+	// MEDIUM fuer Format dd.MM.yyyy
+	public String getSeitAsString(int style, Locale locale) {
+		Date temp = seit;
+		if (temp == null) {
+			temp = new Date();
+		}
+		final DateFormat f = DateFormat.getDateInstance(style, locale);
+		return f.format(temp);
 	}
 	
-	public void setNachname(String nachname) {
-		this.nachname = nachname;
+	// Parameter, z.B. DateFormat.MEDIUM, Locale.GERMANY
+	// MEDIUM fuer Format dd.MM.yyyy
+	public void setSeit(String seitStr, int style, Locale locale) {
+		final DateFormat f = DateFormat.getDateInstance(style, locale);
+		try {
+			this.seit = f.parse(seitStr);
+		}
+		catch (ParseException e) {
+			throw new RuntimeException("Kein gueltiges Datumsformat fuer: " + seitStr, e);
+		}
+	}
+
+	public BigDecimal getUmsatz() {
+		return umsatz;
+	}
+
+	public void setUmsatz(BigDecimal umsatz) {
+		this.umsatz = umsatz;
 	}
 	
+	public BigDecimal getRabatt() {
+		return rabatt;
+	}
+	public void setRabatt(BigDecimal rabatt) {
+		this.rabatt = rabatt;
+	}
+
 	public String getEmail() {
 		return email;
 	}
-	
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
+	public void setNewsletter(boolean newsletter) {
+		this.newsletter = newsletter;
+	}
+
+	public boolean isNewsletter() {
+		return newsletter;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPasswordWdh() {
+		return passwordWdh;
+	}
+
+	public void setPasswordWdh(String passwordWdh) {
+		this.passwordWdh = passwordWdh;
+	}
+
 	public Adresse getAdresse() {
 		return adresse;
 	}
-	
 	public void setAdresse(Adresse adresse) {
 		this.adresse = adresse;
 	}
 	
 	public List<Bestellung> getBestellungen() {
-		return bestellungen;
+		if (bestellungen == null) {
+			return null;
+		}		
+		return Collections.unmodifiableList(bestellungen);
 	}
 	
 	public void setBestellungen(List<Bestellung> bestellungen) {
-		this.bestellungen = bestellungen;
+		if (this.bestellungen == null) {
+			this.bestellungen = bestellungen;
+			return;
+		}
+		
+		// Wiederverwendung der vorhandenen Collection
+		this.bestellungen.clear();
+		if (bestellungen != null) {
+			this.bestellungen.addAll(bestellungen);
+		}
+	}
+	
+	public AbstractKunde addBestellung(Bestellung bestellung) {
+		if (bestellungen == null) {
+			bestellungen = new ArrayList<>();
+		}
+		bestellungen.add(bestellung);
+		return this;
 	}
 
 	public URI getBestellungenUri() {
 		return bestellungenUri;
 	}
-	
+
 	public void setBestellungenUri(URI bestellungenUri) {
 		this.bestellungenUri = bestellungenUri;
 	}
+
+	public List<Wartungsvertrag> getWartungsvertraege() {
+		if (wartungsvertraege == null) {
+			return null;
+		}
+		
+		return Collections.unmodifiableList(wartungsvertraege);
+	}
+
+	public void setWartungsvertraege(List<Wartungsvertrag> wartungsvertraege) {
+		if (this.wartungsvertraege == null) {
+			this.wartungsvertraege = wartungsvertraege;
+			return;
+		}
+		
+		// Wiederverwendung der vorhandenen Collection
+		this.wartungsvertraege.clear();
+		if (wartungsvertraege != null) {
+			this.wartungsvertraege.addAll(wartungsvertraege);
+		}
+	}
 	
+	public AbstractKunde addWartungsvertrag(Wartungsvertrag wartungsvertrag) {
+		if (wartungsvertraege == null) {
+			wartungsvertraege = new ArrayList<>();
+		}
+		wartungsvertraege.add(wartungsvertrag);
+		return this;
+	}
+
+
+	@Override
+	public String toString() {
+		return "AbstractKunde [id=" + id
+			   + ", nachname=" + nachname + ", vorname=" + vorname
+			   + ", seit=" + getSeitAsString(DateFormat.MEDIUM, Locale.GERMANY)
+			   + ", umsatz=" + umsatz
+			   + ", email=" + email
+			   + ", password=" + password + ", passwordWdh=" + passwordWdh
+			   + ", bestellungenUri=" + bestellungenUri
+			   + ", " + super.toString() + "]";
+	}
+
+	/**
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((adresse == null) ? 0 : adresse.hashCode());
-		result = prime * result
-				+ ((bestellungen == null) ? 0 : bestellungen.hashCode());
-		result = prime * result
-				+ ((bestellungenUri == null) ? 0 : bestellungenUri.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result
-				+ ((nachname == null) ? 0 : nachname.hashCode());
-		result = prime * result + ((vorname == null) ? 0 : vorname.hashCode());
 		return result;
 	}
-	
+
+	/**
+	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		final AbstractKunde other = (AbstractKunde) obj;
-		if (adresse == null) {
-			if (other.adresse != null)
-				return false;
-		}
-		else if (!adresse.equals(other.adresse))
-			return false;
-		if (bestellungen == null) {
-			if (other.bestellungen != null)
-				return false;
-		}
-		else if (!bestellungen.equals(other.bestellungen))
-			return false;
-		if (bestellungenUri == null) {
-			if (other.bestellungenUri != null)
-				return false;
-		}
-		else if (!bestellungenUri.equals(other.bestellungenUri))
-			return false;
+		
 		if (email == null) {
-			if (other.email != null)
+			if (other.email != null) {
 				return false;
+			}
 		}
-		else if (!email.equals(other.email))
+		else if (!email.equals(other.email)) {
 			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
 		}
-		else if (!id.equals(other.id))
-			return false;
-		if (nachname == null) {
-			if (other.nachname != null)
-				return false;
-		}
-		else if (!nachname.equals(other.nachname))
-			return false;
-		if (vorname == null) {
-			if (other.vorname != null)
-				return false;
-		}
-		else if (!vorname.equals(other.vorname))
-			return false;
+		
 		return true;
-	}
-	
-	@Override
-	public String toString() {
-		return "AbstractKunde [id=" + id + ", vorname=" + vorname
-				+ ", nachname=" + nachname + ", email=" + email + ", adresse="
-				+ adresse + ", bestellungen=" + bestellungen
-				+ ", bestellungenUri=" + bestellungenUri + "]";
 	}
 }
