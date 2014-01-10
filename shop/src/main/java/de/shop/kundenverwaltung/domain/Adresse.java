@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -43,6 +45,8 @@ public class Adresse implements Serializable {
 	
 	@XmlTransient
 	@Valid
+	@OneToOne
+	@JoinColumn(name= "kunde_fk",nullable = false , unique = true)
 	private AbstractKunde kunde;
 	
 	public Long getId() {
