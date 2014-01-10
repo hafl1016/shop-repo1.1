@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jboss.logging.Logger;
 
+import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.util.persistence.AbstractAuditable;
 
 
@@ -95,7 +96,13 @@ public class Artikel extends AbstractAuditable {
 	public Long getId() {
 		return id;
 	}
-
+	
+	public void setValues(Artikel a) {
+		bezeichnung = a.bezeichnung;
+		preis = a.preis;
+		ausgesondert = a.ausgesondert;
+	}
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
