@@ -129,4 +129,13 @@ public class ArtikelService implements Serializable {
 				 .setParameter(Artikel.PARAM_PREIS, preis)
 				 .getResultList();
 	}
+	
+	public Artikel createArtikel (Artikel artikel) {
+		if(artikel ==null) {
+			return artikel;
+		}
+		
+		em.persist(artikel);
+		return artikel;		
+	}
 }

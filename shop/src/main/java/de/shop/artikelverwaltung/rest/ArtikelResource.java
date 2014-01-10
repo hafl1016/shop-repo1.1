@@ -4,14 +4,18 @@ import static de.shop.util.Constants.SELF_LINK;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 import static javax.ws.rs.core.MediaType.TEXT_XML;
+import static de.shop.util.Constants.KEINE_ID;
 
+import java.lang.invoke.MethodHandles;
 import java.net.URI;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -19,6 +23,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Link;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+
+import org.jboss.logging.Logger;
 
 import de.shop.artikelverwaltung.domain.Artikel;
 import de.shop.artikelverwaltung.service.ArtikelService;
@@ -36,6 +42,8 @@ import de.shop.util.rest.UriHelper;
 @Transactional
 @Log
 public class ArtikelResource {
+	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
+	
 	@Context
 	private UriInfo uriInfo;
 	
@@ -53,6 +61,19 @@ public class ArtikelResource {
 		return Response.ok(artikel)
                        .links(getTransitionalLinks(artikel, uriInfo))
                        .build();
+	}
+	
+	@POST
+	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML})
+	@Produces
+	public Response createArtikel(@Valid Artikel artikel) {
+		artikel.setId(KEINE_ID);
+		
+		artikel = as.createArtikel(artikel);
+		LOGGER.tracef("Artikel: %s", artikel);
+		
+		return Response.created(getUriArtikel(artikel,uriInfo))
+					   .build();
 	}
 	
 	private Link[] getTransitionalLinks(Artikel artikel, UriInfo uriInfo) {
