@@ -65,7 +65,7 @@ public class ArtikelResource {
 	}
 	
 	@POST
-	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML})
+	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
 	public Response createArtikel(@Valid Artikel artikel) {
 		artikel.setId(KEINE_ID);
@@ -73,7 +73,7 @@ public class ArtikelResource {
 		artikel = as.createArtikel(artikel);
 		LOGGER.tracef("Artikel: %s", artikel);
 		
-		return Response.created(getUriArtikel(artikel,uriInfo))
+		return Response.created(getUriArtikel(artikel, uriInfo))
 					   .build();
 	}
 	
