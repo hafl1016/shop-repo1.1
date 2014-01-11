@@ -25,42 +25,41 @@ import de.shop.util.persistence.AbstractAuditable;
 
 
 @Entity
-@Table(indexes = @Index(columnList = "plz"))   // Zu kunde_fk wird unten ein UNIQUE Index definiert
+@Table(indexes = @Index(columnList = "plz"))
 public class Adresse extends AbstractAuditable {
 	private static final long serialVersionUID = -5108148468525006134L;
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	
-	private static final int PLZ_LENGTH_MAX = 5;
-	private static final int ORT_LENGTH_MIN = 2;
-	private static final int ORT_LENGTH_MAX = 32;
-	private static final int STRASSE_LENGTH_MIN = 2;
-	private static final int STRASSE_LENGTH_MAX = 32;
-	private static final int HAUSNR_LENGTH_MAX = 4;
 
 	@Id
 	@GeneratedValue
 	@Basic(optional = false)
 	private Long id = KEINE_ID;
 
+	@NotNull(message = "{adresse.ort.notNull}")
+	@Size(min = 2, max = 32, message = "{adresse.ort.length}")
+	@Pattern(regexp = "[A-Z\u00C4\u00D6\u00DC][-a-zA-Z\u00E4\u00F6\u00FC\u00DF\u0020]+", 
+			message = "{adresse.ort.pattern}")
+	private String ort;
+	
+	@NotNull(message = "{adresse.strasse.notNull}")
+	@Size(min = 2, max = 32, message = "{adresse.strasse.length}")
+	@Pattern(regexp = "[A-Z\u00C4\u00D6\u00DC][-a-zA-Z\u00E4\u00F6\u00FC\u00DF\u0020]+", 
+			message = "{adresse.strasse.pattern}")
+	private String strasse;
+	
+	@Size(max = 4, message = "{adresse.hausnr.length}")
+	@Pattern(regexp = "[1-9][0-9]*[a-z]*", message = "{adresse.hausnr.pattern}")
+	private String hausnr;
+	
 	@NotNull(message = "{adresse.plz.notNull}")
-	@Pattern(regexp = "\\d{" + PLZ_LENGTH_MAX + "}", message = "{adresse.plz}")
-	@Column(length = PLZ_LENGTH_MAX)
+	@Pattern(regexp = "\\d{" + 5 + "}", message = "{adresse.plz.pattern}")
+	@Column(length = 5)
 	private String plz;
 
-	@NotNull(message = "{adresse.ort.notNull}")
-	@Size(min = ORT_LENGTH_MIN, max = ORT_LENGTH_MAX, message = "{adresse.ort.length}")
-	private String ort;
-
-	@NotNull(message = "{adresse.strasse.notNull}")
-	@Size(min = STRASSE_LENGTH_MIN, max = STRASSE_LENGTH_MAX, message = "{adresse.strasse.length}")
-	private String strasse;
-
-	@Size(max = HAUSNR_LENGTH_MAX, message = "{adresse.hausnr.length}")
-	private String hausnr;
 
 	@OneToOne
 	@JoinColumn(name = "kunde_fk", nullable = false, unique = true)
-	//NICHT @NotNull, weil beim Anlegen ueber REST der Rueckwaertsverweis noch nicht existiert
 	@XmlTransient
 	private AbstractKunde kunde;
 	
