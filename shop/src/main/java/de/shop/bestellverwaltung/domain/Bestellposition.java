@@ -17,6 +17,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.PostPersist;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -55,6 +56,7 @@ public class Bestellposition extends AbstractAuditable {
 	
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "artikel_fk", nullable = false)
+	@Valid
 	@XmlTransient
 	private Artikel artikel;
 

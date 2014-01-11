@@ -89,6 +89,7 @@ public class Bestellung extends AbstractAuditable {
 	private Long id = KEINE_ID;
 
 	@ManyToOne
+	@Valid
 	@JoinColumn(name = "kunde_fk", nullable = false, insertable = false, updatable = false)
 	@XmlTransient
 	private AbstractKunde kunde;
