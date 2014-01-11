@@ -16,16 +16,15 @@ import javax.persistence.PostPersist;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jboss.logging.Logger;
+
 import de.shop.util.persistence.AbstractAuditable;
 
 
-/**
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
 @XmlRootElement
 @Entity
 @Table(indexes = @Index(columnList = "bezeichnung"))
@@ -51,7 +50,6 @@ public class Artikel extends AbstractAuditable {
 	private static final long serialVersionUID = -3700579190995722151L;
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	
-	private static final int BEZEICHNUNG_LENGTH_MAX = 32;
 	
 	private static final String PREFIX = "Artikel.";
 	public static final String FIND_VERFUEGBARE_ARTIKEL = PREFIX + "findVerfuegbareArtikel";
@@ -67,9 +65,12 @@ public class Artikel extends AbstractAuditable {
 	private Long id = KEINE_ID;
 	
 	@NotNull(message = "{artikel.bezeichnung.notNull}")
-	@Size(max = BEZEICHNUNG_LENGTH_MAX, message = "{artikel.bezeichnung.length}")
+	@Size(max = 32, message = "{artikel.bezeichnung.length}")
+	@Pattern(regexp = "[A-Z\u00C4\u00D6\u00DC][-a-zA-Z0-9\u00E4\u00F6\u00FC\u00DF\u0020]+",  
+			message = "{artikel.bezeichnung.pattern}")
 	private String bezeichnung = "";
 	
+	@NotNull(message = "{artikel.preis.notNull}")
 	@Digits(integer = 10, fraction = 2, message = "{artikel.preis.digits}")
 	private BigDecimal preis;
 	
