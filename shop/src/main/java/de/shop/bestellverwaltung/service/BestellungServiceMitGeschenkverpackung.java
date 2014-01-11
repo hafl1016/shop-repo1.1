@@ -16,9 +16,6 @@ import de.shop.bestellverwaltung.domain.Bestellung;
 import de.shop.bestellverwaltung.domain.Lieferung;
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 
-/**
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
 @Decorator
 @Dependent
 public abstract class BestellungServiceMitGeschenkverpackung implements BestellungService {

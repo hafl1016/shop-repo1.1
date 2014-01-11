@@ -44,10 +44,6 @@ import org.jboss.logging.Logger;
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.util.persistence.AbstractAuditable;
 
-
-/**
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
 @XmlRootElement
 @Entity
 // TODO MySQL 5.7 kann einen Index nicht 2x anlegen

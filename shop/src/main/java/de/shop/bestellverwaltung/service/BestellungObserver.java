@@ -24,9 +24,6 @@ import de.shop.util.interceptor.Log;
 import de.shop.util.mail.AbsenderMail;
 import de.shop.util.mail.AbsenderName;
 
-/**
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
 @ApplicationScoped
 @Log
 public class BestellungObserver implements Serializable {
