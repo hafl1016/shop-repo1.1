@@ -386,6 +386,7 @@ public class KundeResource {
 	
 		// Daten des vorhandenen Kunden ueberschreiben
 		origKunde.setValues(kunde);
+		origKunde.setAdresse(kunde.getAdresse());
 		LOGGER.tracef("Kunde nachher: %s", origKunde);
 		
 		// Update durchfuehren
