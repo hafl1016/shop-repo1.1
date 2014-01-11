@@ -100,7 +100,6 @@ public class Bestellung extends AbstractAuditable {
 	@OneToMany(fetch = EAGER, cascade = { PERSIST, REMOVE })
 	@JoinColumn(name = "bestellung_fk", nullable = false)
 	@NotEmpty(message = "{bestellung.bestellpositionen.notEmpty}")
-	@Valid
 	private Set<Bestellposition> bestellpositionen;
 	
 	@ManyToMany
