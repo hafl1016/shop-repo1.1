@@ -16,9 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
+
 @XmlRootElement
 @Entity
 @DiscriminatorValue(PRIVATKUNDE)

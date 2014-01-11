@@ -23,9 +23,7 @@ import org.jboss.logging.Logger;
 
 import de.shop.util.persistence.AbstractAuditable;
 
-/**
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
+
 @Entity
 @Table(indexes = @Index(columnList = "plz"))   // Zu kunde_fk wird unten ein UNIQUE Index definiert
 public class Adresse extends AbstractAuditable {

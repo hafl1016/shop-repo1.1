@@ -61,9 +61,7 @@ import de.shop.bestellverwaltung.domain.Bestellung;
 import de.shop.util.persistence.AbstractAuditable;
 
 
-/**
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
+
 @ScriptAssert(lang = "javascript",
               script = "_this.password != null && !_this.password.equals(\"\")"
                        + " && _this.password.equals(_this.passwordWdh)",

@@ -144,7 +144,7 @@ public class KundeResource {
 		                        .rel(REMOVE_LINK)
 		                        .build();
 
-		return new Link[] { self, list, add, update, remove };
+		return new Link[] {self, list, add, update, remove };
 	}
 	
 	public URI getUriKunde(AbstractKunde kunde, UriInfo uriInfo) {
@@ -193,7 +193,7 @@ public class KundeResource {
 			// FIXME JDK 8 hat Lambda-Ausdruecke
 			//kunden.parallelStream()
 			//      .forEach(k -> setStructuralLinks(k, uriInfo));
-			entity = new GenericEntity<List<? extends AbstractKunde>>(kunden){};
+			entity = new GenericEntity<List<? extends AbstractKunde>>(kunden) { };
 			links = getTransitionalLinksKunden(kunden, uriInfo);
 		}
 		else if (kunde != null) {
@@ -219,7 +219,7 @@ public class KundeResource {
                               .rel(LAST_LINK)
                               .build();
 		
-		return new Link[] { first, last };
+		return new Link[] {first, last };
 	}
 	
 	/**
@@ -269,7 +269,7 @@ public class KundeResource {
 			//            .forEach(b -> bestellungResource.setStructuralLinks(b, uriInfo));
 		}
 		
-		final Response response = Response.ok(new GenericEntity<List<Bestellung>>(bestellungen) {})
+		final Response response = Response.ok(new GenericEntity<List<Bestellung>>(bestellungen) { })
                                           .links(getTransitionalLinksBestellungen(bestellungen, kunde, uriInfo))
                                           .build();
 		return response;
@@ -294,7 +294,7 @@ public class KundeResource {
                               .rel(LAST_LINK)
                               .build();
 		
-		return new Link[] { self, first, last };
+		return new Link[] {self, first, last };
 	}
 	
 
@@ -320,7 +320,7 @@ public class KundeResource {
 		//            .map(Bestellung::getId)
 		//            .forEach(id -> bestellungenIds.add(id));
 		
-		return Response.ok(new GenericEntity<Collection<Long>>(bestellungenIds) {})
+		return Response.ok(new GenericEntity<Collection<Long>>(bestellungenIds) { })
 				       .build();
 	}
 	

@@ -130,8 +130,8 @@ public class ArtikelService implements Serializable {
 				 .getResultList();
 	}
 	
-	public Artikel createArtikel (Artikel artikel) {
-		if(artikel ==null) {
+	public Artikel createArtikel(Artikel artikel) {
+		if (artikel == null) {
 			return artikel;
 		}
 		
@@ -140,7 +140,7 @@ public class ArtikelService implements Serializable {
 	}
 	
 	public Artikel updateArtikel(Artikel artikel) {
-		if(artikel == null) 
+		if (artikel == null) 
 			return null;
 		
 		em.merge(artikel);
