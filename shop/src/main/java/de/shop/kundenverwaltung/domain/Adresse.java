@@ -29,7 +29,7 @@ import de.shop.util.persistence.AbstractAuditable;
 public class Adresse extends AbstractAuditable {
 	private static final long serialVersionUID = -5108148468525006134L;
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
-	
+	private static final int PLZlaenge = 5;
 
 	@Id
 	@GeneratedValue
@@ -53,7 +53,7 @@ public class Adresse extends AbstractAuditable {
 	private String hausnr;
 	
 	@NotNull(message = "{adresse.plz.notNull}")
-	@Pattern(regexp = "\\d{" + 5 + "}", message = "{adresse.plz.pattern}")
+	@Pattern(regexp = "\\d{" + PLZlaenge + "}", message = "{adresse.plz.pattern}")
 	@Column(length = 5)
 	private String plz;
 
